@@ -111,7 +111,7 @@ p, li, span, a {
    4. COMPONENT: ROLE CARD (Intro Section)
    ========================================= */
 .role-card {
-    border: 1px solid #000;
+    border: 2px solid #000;
     padding: 20px;
     margin-bottom: 24px;
     border-radius: 8px;
@@ -258,6 +258,10 @@ p, li, span, a {
         display: none;
     }
 
+    .panel{
+        margin-top: -10px;
+    }
+
     /* THE HORIZONTAL SCROLL TRICK */
     /* This creates a wide container inside the panel for GSAP to scroll */
     .panel-content {
@@ -278,6 +282,11 @@ p, li, span, a {
         text-align: left;
         margin: 0;       /* Removes the "auto" centering */
         margin-left: 0;  /* Ensures it snaps to the left */
+
+        /* 1. Make it stand on top */
+        position: relative;
+        z-index: 5; /* Higher than the moving text */
+        background-color: var(--bg-color); /* Ensure it's not transparent */
     }
 
     .animated-tape {
@@ -289,16 +298,50 @@ p, li, span, a {
         flex-direction: row;
         gap: 48px;
         flex-shrink: 0;
+
+        /* 1. Allow it to move independently */
+        position: relative;
+        z-index: 1; /* Lower than header */
     }
 
     .role-card{
         width: 360px;
         flex-shrink: 0;
+        max-height: fit-content;
     }
 
     .text-block{
-        width: 350px;
+        width: 600px;
         flex-shrink: 0;
         text-align: left;
+    }
+
+ /* THE NEW TEXT FLOW CONTAINER */
+    .story-container {
+        height: 50vh;
+        max-height: 500px;
+        column-width: 600px;
+        column-gap: 48px;
+        column-fill: auto;
+        flex-shrink: 0;
+        width: fit-content;
+    }
+
+    /* 1. HEADINGS (Glue them to the text below) */
+    .story-container h2 {
+        font-family: 'Space Mono', monospace; /* Ensure font matches */
+        margin-top: 0;         /* Remove top margin so it aligns with column top */    
+        break-inside: avoid;   /* Don't chop the title itself in half */
+        break-after: avoid;    /* CRITICAL: Never leave a title alone at bottom */
+        display: block;
+    }
+
+    /* 2. PARAGRAPHS (Let them flow naturally) */
+    .story-container p {
+        margin-bottom: 24px;
+        break-inside: auto;    
+        /* Optional: aesthetic tweaks */
+        orphans: 2;            /* Minimum lines to leave at bottom of column */
+        widows: 2;             /* Minimum lines to push to next column */
     }
 }
