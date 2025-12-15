@@ -1,0 +1,304 @@
+:root{
+    --bg-color: #FAFAFA; /* Light gray background from your images */
+    --font-color: #121212; /* Dark text color from your images */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #121212; /* Light gray background from your images */
+    color: #121212;
+    font-family: 'Space Mono', monospace; /* Default body font */
+    overflow-x: hidden; /* Prevents accidental horizontal scrollbar */
+}
+
+.global-wrapper{
+    background-color: #FAFAFA;
+}
+
+h1{
+    font-family: "Boldonse", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 36px;
+}
+
+h2{
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-size: 32px;
+}
+
+h3, h4, h5, h6, p, span, a {
+    font-family: 'Space Mono', monospace;
+    font-weight: 400;
+}
+
+p, li, span, a {
+    font-size: 16px;
+}
+
+/* =========================================
+   2. LAYOUT & PANELS
+   ========================================= */
+#main-wrapper {
+    position: relative;
+    width: 100vw;
+    overflow: hidden;
+    background-color: var(--font-color);
+
+    min-height: 100vh;
+
+}
+
+/* The Generic Section Container */
+.panel {
+    margin-top: 1px;
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 80px 20px 0px 20px; /* Top padding clears the navbar */
+    box-sizing: border-box;
+    background-color: var(--bg-color);
+    border-bottom: 1px solid rgba(0,0,0,0.1); /* Visual separator */
+}
+
+/* Wrapper for content */
+.panel-content {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+/* =========================================
+   3. COMPONENT: INFINITE TAPE (Marquee)
+   ========================================= */
+.animated-tape {
+    /* 1. BREAK OUT OF PARENT PADDING (The Fix) */
+    width: calc(100% + 40px); /* Widen it to cover the padding gaps */
+    margin-left: -20px;       /* Pull left to edge */
+    margin-right: -20px;      /* Pull right to edge */
+    
+    /* 2. Visual Styles */
+    background: var(--font-color);
+    color: var(--bg-color);
+    margin-top: 20px;    /* Keep vertical spacing */
+    margin-bottom: 20px; /* Keep vertical spacing */
+    
+    /* 3. Text & Animation Settings */
+    overflow: hidden;
+    white-space: nowrap;
+    font-family: 'Space Mono', monospace;
+    font-size: 16px;
+}
+
+.animated-tape span {
+    display: inline-block;
+    animation: marquee 10s linear infinite;
+    padding-left: 100%; /* Start off screen */
+}
+
+@keyframes marquee {
+    0%   { transform: translate(0, 0); }
+    100% { transform: translate(-100%, 0); }
+}
+
+/* =========================================
+   4. COMPONENT: ROLE CARD (Intro Section)
+   ========================================= */
+.role-card {
+    border: 1px solid #000;
+    padding: 20px;
+    margin-bottom: 24px;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.card-item {
+    margin-bottom: 16px;
+}
+
+.card-item .label {
+    font-weight: 700;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.sub-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+/* =========================================
+   5. NAVIGATION (Floating Bottom Capsule)
+   ========================================= */
+.navbar {
+    position: fixed;
+    bottom: 24px; /* Float off the bottom edge */
+    left: 50%;
+    transform: translateX(-50%); /* Center horizontally */
+    width: auto;
+    max-width: calc(100% - 40px); /* Ensure it doesn't touch screen edges */
+    height: auto;
+    background: var(--font-color); /* Dark background like the image */
+    z-index: 99;
+    display: flex;
+    align-items: center;
+    padding: 12px 24px; /* Padding gives it the capsule size */
+    border-radius: 8px; /* Makes it perfectly round */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25); /* Adds the floating effect */
+}
+
+.nav-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    overflow: hidden; /* Contains the scroll area */
+}
+
+/* The Home Icon */
+.nav-home-btn {
+    display: flex;
+    align-items: center;
+    margin-right: 20px; /* Spacing between icon and text links */
+    flex-shrink: 0; /* Prevents icon from squishing */
+}
+
+/* The container for the swipeable links */
+.nav-steps-container {
+    overflow-x: auto; /* Enables horizontal scrolling */
+    white-space: nowrap;
+    flex-grow: 1; /* Takes up remaining space */
+    /* Hides scrollbar for a cleaner look */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE 10+ */
+}
+.nav-steps-container::-webkit-scrollbar { /* WebKit */
+    display: none;
+}
+
+.nav-steps {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Space between links */
+    padding-right: 10px; /* Little buffer at the end of scroll */
+}
+
+.nav-steps a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.6); /* Inactive state is slightly faded white */
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+}
+
+.navbar {
+    /* Existing styles... */
+    transition: transform 0.3s ease, opacity 0.3s ease; /* smooth animation */
+}
+
+/* The state when the navbar is hidden */
+.navbar.nav-hidden {
+    transform: translateX(-50%) translateY(100%); /* Slide down out of view */
+    opacity: 0; /* Fade out */
+    pointer-events: none; /* Make unclickable */
+}
+
+/* Active State (The white underlined one in your image) */
+.nav-steps .active a {
+    color: #fff; /* Pure white */
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+/* =========================================
+   6. BUTTONS
+   ========================================= */
+
+    .next-stage-btn{
+        background-color: var(--font-color);
+        color: var(--bg-color);
+        border: none;
+        padding: 54px 24px;
+        width: calc(100% + 40px); /* Widen it to cover the padding gaps */
+        margin-left: -20px;       /* Pull left to edge */
+        margin-right: -20px;      /* Pull right to edge */
+        margin-top: 36px;
+        z-index: 100;
+        position: relative;
+        bottom: -1px;
+    }
+
+/* =========================================
+   7. DESKTOP OVERRIDES (Min-width: 768px)
+   ========================================= */
+@media (min-width: 768px) {
+    /* Update Typography for Desktop */
+    h1 { font-size: 64px; }
+    h2 { font-size: 48px; }
+    p, li, span { font-size: 20px; }
+
+    .navbar{
+        top: 124px;
+        bottom: auto;
+    }
+
+    .nav-steps a {
+        font-size: 16px;
+    }
+
+    /* Hide Mobile Buttons */
+    .mobile-only {
+        display: none;
+    }
+
+    /* THE HORIZONTAL SCROLL TRICK */
+    /* This creates a wide container inside the panel for GSAP to scroll */
+    .panel-content {
+        display: flex;
+        flex-direction: column;
+        width: fit-content;
+        height: 100vh;
+        align-items: flex-start;
+        gap: 100px;
+        margin: 0;
+        margin-left: 200px;
+        padding-left: 0
+    }
+    
+    .section-header{
+        flex-shrink: 0;
+        width: 300px;
+        text-align: left;
+        margin: 0;       /* Removes the "auto" centering */
+        margin-left: 0;  /* Ensures it snaps to the left */
+    }
+
+    .animated-tape {
+        display: none;
+    }
+    
+    .section-body{
+        display: flex;
+        flex-direction: row;
+        gap: 48px;
+        flex-shrink: 0;
+    }
+
+    .role-card{
+        width: 360px;
+        flex-shrink: 0;
+    }
+
+    .text-block{
+        width: 350px;
+        flex-shrink: 0;
+        text-align: left;
+    }
+}
