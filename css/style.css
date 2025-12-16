@@ -42,6 +42,16 @@ p, li, span, a {
     font-size: 16px;
 }
 
+.inline-link {
+    color: var(--font-color);
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.margin-top-mobile{
+    margin-top: 24px;
+}
+
 /* =========================================
    2. LAYOUT & PANELS
    ========================================= */
@@ -74,37 +84,49 @@ p, li, span, a {
     margin: 0 auto;
 }
 
+.story-container ol, .story-container ul {
+    list-style-position: inside;
+}
+
 /* =========================================
    3. COMPONENT: INFINITE TAPE (Marquee)
    ========================================= */
 .animated-tape {
-    /* 1. BREAK OUT OF PARENT PADDING (The Fix) */
-    width: calc(100% + 40px); /* Widen it to cover the padding gaps */
-    margin-left: -20px;       /* Pull left to edge */
-    margin-right: -20px;      /* Pull right to edge */
+    /* 1. BREAK OUT OF PARENT PADDING */
+    width: calc(100% + 40px);
+    margin-left: -20px;
+    margin-right: -20px;
     
     /* 2. Visual Styles */
     background: var(--font-color);
     color: var(--bg-color);
-    margin-top: 20px;    /* Keep vertical spacing */
-    margin-bottom: 20px; /* Keep vertical spacing */
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 0;
     
     /* 3. Text & Animation Settings */
     overflow: hidden;
     white-space: nowrap;
-    font-family: 'Space Mono', monospace;
-    font-size: 16px;
+    display: flex;
 }
 
 .animated-tape span {
     display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 16px;
+    
+    /* 4. The Infinite Scroll Logic */
+    flex-shrink: 0;      /* Prevent text from squishing */
+    min-width: 100%;     /* Ensure it covers the full width */
+    padding-left: 0;     /* REMOVED the 100% padding that caused the gap */
+    
+    /* Move both spans left forever */
     animation: marquee 10s linear infinite;
-    padding-left: 100%; /* Start off screen */
 }
 
 @keyframes marquee {
-    0%   { transform: translate(0, 0); }
-    100% { transform: translate(-100%, 0); }
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
 }
 
 /* =========================================
@@ -120,6 +142,17 @@ p, li, span, a {
 
 .card-item {
     margin-bottom: 16px;
+    display: flex;
+}
+
+.card-item.no-flex {
+    display: block;
+}
+
+.card-item .icon img{
+    display: inline-block;
+    width: 24px;
+    margin-right: 8px;
 }
 
 .card-item .label {
@@ -244,6 +277,10 @@ p, li, span, a {
     h2 { font-size: 48px; }
     p, li, span { font-size: 20px; }
 
+    .margin-top-mobile{
+        margin-top: 0px;
+    }
+
     .navbar{
         top: 124px;
         bottom: auto;
@@ -318,13 +355,14 @@ p, li, span, a {
 
  /* THE NEW TEXT FLOW CONTAINER */
     .story-container {
+        display: block;
         height: 50vh;
         max-height: 500px;
         column-width: 600px;
         column-gap: 48px;
         column-fill: auto;
         flex-shrink: 0;
-        width: fit-content;
+        width: max-content;
     }
 
     /* 1. HEADINGS (Glue them to the text below) */
@@ -344,4 +382,200 @@ p, li, span, a {
         orphans: 2;            /* Minimum lines to leave at bottom of column */
         widows: 2;             /* Minimum lines to push to next column */
     }
+
+    /* 3. NO-BREAK DIV (Prevent page breaks inside) */
+    .no-break {
+        break-inside: avoid;   /* Prevent breaks inside this div */
+    }
+
+    .stats-grid {
+        flex-direction: row; /* Desktop: Sit next to each other */
+        width: fit-content;  /* Grow as wide as needed */
+        flex-shrink: 0;      /* Don't get squished */
+        align-items: flex-start; /* Align to top */
+        margin-top: 0;
+        gap: 32px;
+    }
+
+    .stat-item {
+        width: 100%; /* Fixed width for each card in horizontal scroll */
+        min-height: 486px; /* Make them equal height if you want */
+        flex-shrink: 0;
+    }
+
+   
+
+    .stat-title{
+        font-size: 48px !important;
+        align-self: center;
+    }
+
+    .stat-desc{
+        font-size: 20px !important;
+    }
+}
+
+/* =========================================
+   8. GLOBAL MODAL STYLES
+   ========================================= */
+
+/* The Dark Background Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6); /* Dim background */
+    backdrop-filter: blur(4px);      /* Nice blur effect */
+    z-index: 9999;                   /* Sit on top of EVERYTHING */
+    
+    /* Hidden by default */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    
+    /* Flex to center the modal */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Start at top */
+    padding-top: 60px;       /* Distance from top edge */
+}
+
+/* The Modal Box */
+.modal-container {
+    background: var(--bg-color);
+    width: 90%;
+    max-width: 500px;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    overflow: hidden;
+    
+    /* Initial State for Animation (Hidden Up Top) */
+    transform: translateY(-50px);
+    opacity: 0;
+    /* We will animate this with GSAP, but basic transition as backup */
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+}
+
+/* State when Open */
+.modal-overlay.is-open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-overlay.is-open .modal-container {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Header Bar */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.modal-title {
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-size: 18px;
+    margin: 0;
+}
+
+/* The Circular Close Button */
+.modal-close-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--font-color);
+    background: transparent;
+    color: var(--font-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.modal-close-btn:hover {
+    background: var(--font-color);
+    color: var(--bg-color);
+}
+
+/* Body Content */
+.modal-body-content {
+    padding: 24px;
+    max-height: 60vh; /* Allow scrolling if list is huge */
+    overflow-y: auto;
+}
+
+/* Example List Styling */
+.modal-list {
+    list-style: none;
+    padding: 0;
+}
+.modal-list li {
+    margin-bottom: 12px;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* The Trigger Link Style */
+.modal-trigger {
+    background: none;
+    border: none;
+    padding: 0;
+    color: #555; /* Subtle color */
+    text-decoration: underline;
+    cursor: pointer;
+    font-family: 'Space Mono', monospace;
+    font-size: inherit;
+}
+.modal-trigger:hover {
+    color: #000;
+}
+
+/* =========================================
+   9. NEW COMPONENT: STATS GRID
+   ========================================= */
+.stats-grid {
+    display: flex;
+    flex-direction: column; /* Mobile: Stack on top of each other */
+    gap: 24px;
+    margin-top: 24px;
+    width: 100%;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: center;
+}
+
+ .stat-item .card-container{
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 90%;
+        justify-content: center;
+    }
+
+.stat-number {
+    align-self: center;
+}
+
+.stat-title {
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-size: 32px;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.stat-desc {
+    font-size: 16px;
+    line-height: 1.4;
+    margin: 0;
 }

@@ -6,9 +6,6 @@ let mm = gsap.matchMedia();
 
 /* =========================================================
    DESKTOP LOGIC (Min-Width: 768px)
-   - "Pin" the section.
-   - FIXED HEADER.
-   - SCROLLING BODY (Exact Content Measurement).
    ========================================================= */
 mm.add("(min-width: 768px)", () => {
     
@@ -20,26 +17,25 @@ mm.add("(min-width: 768px)", () => {
         const header = panel.querySelector(".section-header");
         const body = panel.querySelector(".section-body");
 
-        // 1. Measure the Header
-        // We include its width + its right margin (50px from your CSS)
-        const headerWidth = header.offsetWidth + 50;
+        // 1. Measure Header (Fixed width + margin)
+        const headerWidth = header.offsetWidth + 50; 
 
-        // 2. Measure the "Real" Content Width
-        // Instead of asking the body how wide it is (which gives wrong answers),
-        // we find the last item inside and ask where IT ends.
-        const lastItem = body.lastElementChild; 
+        // 2. SMART MEASUREMENT (The Fix)
+        // Instead of measuring the container box (which might have empty space),
+        // we create a 'Range' that selects the actual text content and measures that.
+        const lastItem = body.lastElementChild; // The story-container
+        const range = document.createRange();
+        range.selectNodeContents(lastItem); // Select all text inside
+        const textRect = range.getBoundingClientRect();
+        
+        // Use the text's edge, OR the container's edge (whichever is smaller)
+        // This ensures we stop exactly at the text.
         const bodyRect = body.getBoundingClientRect();
-        const lastItemRect = lastItem.getBoundingClientRect();
-        
-        // This calculates exactly how many pixels of content you actually have
-        const realContentWidth = lastItemRect.right - bodyRect.left;
+        const realContentWidth = (textRect.right - bodyRect.left);
 
-        // 3. Calculate Scroll Distance
-        // Formula: (Real Content Width) - (Screen Space available after header)
+        // 3. Calculate Scroll
         const availableSpace = window.innerWidth - headerWidth;
-        
-        // We add a tiny buffer (20px) so the text doesn't hit the exact screen edge
-        const amountToScroll = realContentWidth - availableSpace + 20;
+        const amountToScroll = realContentWidth - availableSpace + 50; // +50px buffer
 
         if (amountToScroll > 0) {
             gsap.to(body, {
@@ -217,3 +213,78 @@ mm.add("(max-width: 767px)", () => {
 
 // Debug Log
 console.log("GSAP Logic Loaded");
+
+/* =========================================================
+   GLOBAL MODAL LOGIC
+   - Opens modal from top.
+   - Injects content dynamically based on ID.
+   ========================================================= */
+
+const modalOverlay = document.getElementById("global-modal");
+const modalContainer = document.querySelector(".modal-container");
+const modalTarget = document.getElementById("modal-target");
+const modalTitle = document.querySelector(".modal-title");
+
+// 1. OPEN MODAL FUNCTION
+function openModal(contentId, titleText) {
+    // A. Grab content from the hidden template
+    const hiddenContent = document.getElementById(contentId);
+    if (!hiddenContent) return console.error("Content not found:", contentId);
+    
+    // B. Inject content into the modal
+    modalTarget.innerHTML = hiddenContent.innerHTML;
+    if(titleText) modalTitle.innerText = titleText;
+
+    // C. Show Overlay
+    modalOverlay.classList.add("is-open");
+    
+    // D. Animate Container Drop-in (GSAP for smoothness)
+    gsap.fromTo(modalContainer, 
+        { y: -100, opacity: 0 }, 
+        { y: 0, opacity: 1, duration: 0.5, ease: "back.out(1.2)" }
+    );
+}
+
+// 2. CLOSE MODAL FUNCTION
+function closeModal() {
+    // Animate Out
+    gsap.to(modalContainer, { 
+        y: -50, 
+        opacity: 0, 
+        duration: 0.3, 
+        ease: "power2.in",
+        onComplete: () => {
+            modalOverlay.classList.remove("is-open");
+            modalTarget.innerHTML = ""; // Clear content
+        }
+    });
+}
+
+// 3. EVENT LISTENERS
+
+// A. Watch for clicks on ANY element with class "modal-trigger"
+document.addEventListener("click", (e) => {
+    if (e.target.closest(".modal-trigger")) {
+        const btn = e.target.closest(".modal-trigger");
+        const contentId = btn.getAttribute("data-source");
+        const title = btn.getAttribute("data-title");
+        openModal(contentId, title);
+    }
+});
+
+// B. Close Button
+document.querySelector(".modal-close-btn").addEventListener("click", closeModal);
+
+// C. Click Outside (Overlay Click)
+modalOverlay.addEventListener("click", (e) => {
+    if (e.target === modalOverlay) {
+        closeModal();
+    }
+});
+
+// D. Escape Key
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modalOverlay.classList.contains("is-open")) {
+        closeModal();
+    }
+});
