@@ -226,7 +226,6 @@ p, li, span, a {
     text-decoration: none;
     color: rgba(255, 255, 255, 0.6); /* Inactive state is slightly faded white */
     font-size: 14px;
-    font-weight: 700;
     text-transform: uppercase;
     transition: color 0.3s ease;
 }
@@ -282,8 +281,155 @@ p, li, span, a {
     }
 
     .navbar{
+        top: 60px;
+        bottom: auto;
+        left: 70%;
+        transform: translateX(-50%);
+    }
+
+    .nav-steps a {
+        font-size: 20px;
+        font-style: normal;
+    }
+
+    /* Hide Mobile Buttons */
+    .mobile-only {
+        display: none;
+    }
+
+    .panel{
+        margin-top: -10px;
+        padding: 20px 20px 0px;
+    }
+
+    /* THE HORIZONTAL SCROLL TRICK */
+    /* This creates a wide container inside the panel for GSAP to scroll */
+    .panel-content {
+        display: flex;
+        flex-direction: column;
+        width: fit-content;
+        height: auto;
+        min-height: 100vh;
+        align-items: flex-start;
+        margin: 0;
+        margin-left: 200px;
+        padding-left: 0;
+        gap: 0px;
+    }
+    
+    .section-header{
+        flex-shrink: 0;
+        width: 300px;
+        text-align: left;
+        margin: 0;
+        margin-left: 0;
+        position: relative;
+        z-index: 5;
+        background-color: var(--bg-color); 
+    }
+
+    .animated-tape {
+        display: none;
+    }
+    
+    .section-body{
+        display: flex;
+        flex-direction: row;
+        gap: 48px;
+        flex-shrink: 0;
+
+        /* 1. Allow it to move independently */
+        position: relative;
+        z-index: 1; /* Lower than header */
+    }
+
+    .role-card{
+        width: 360px;
+        flex-shrink: 0;
+        max-height: fit-content;
+    }
+
+    .text-block{
+        width: 600px;
+        flex-shrink: 0;
+        text-align: left;
+    }
+
+ /* THE NEW TEXT FLOW CONTAINER */
+    .story-container {
+        display: block;
+        height: 500px;
+        max-height: 500px;
+        column-width: 600px;
+        column-gap: 48px;
+        column-fill: auto;
+        flex-shrink: 0;
+        width: max-content;
+    }
+
+    /* 1. HEADINGS (Glue them to the text below) */
+    .story-container h2 {
+        font-family: 'Space Mono', monospace; /* Ensure font matches */
+        margin-top: 0;         /* Remove top margin so it aligns with column top */    
+        break-inside: avoid;   /* Don't chop the title itself in half */
+        break-after: avoid;    /* CRITICAL: Never leave a title alone at bottom */
+        display: block;
+    }
+
+    /* 2. PARAGRAPHS (Let them flow naturally) */
+    .story-container p {
+        margin-bottom: 24px;
+        break-inside: auto;    
+        /* Optional: aesthetic tweaks */
+        orphans: 2;            /* Minimum lines to leave at bottom of column */
+        widows: 2;             /* Minimum lines to push to next column */
+    }
+
+    /* 3. NO-BREAK DIV (Prevent page breaks inside) */
+    .no-break {
+        break-inside: avoid;   /* Prevent breaks inside this div */
+    }
+
+    .stats-grid {
+        flex-direction: row; /* Desktop: Sit next to each other */
+        width: fit-content;  /* Grow as wide as needed */
+        flex-shrink: 0;      /* Don't get squished */
+        align-items: flex-start; /* Align to top */
+        margin-top: 0;
+        gap: 32px;
+    }
+
+    .stat-item {
+        width: 100%; /* Fixed width for each card in horizontal scroll */
+        min-height: 486px; /* Make them equal height if you want */
+        flex-shrink: 0;
+    }
+
+    .stat-title{
+        font-size: 48px !important;
+        align-self: center;
+    }
+
+    .stat-desc{
+        font-size: 20px !important;
+    }
+}
+
+@media (min-width: 768px) and (min-height: 970px) {
+    /* Update Typography for Desktop */
+    h1 { font-size: 64px; }
+    h2 { font-size: 48px; }
+    p, li, span { font-size: 20px; }
+
+    .margin-top-mobile{
+        margin-top: 0px;
+    }
+
+    .navbar{
         top: 124px;
         bottom: auto;
+        left: 70%;
+        transform: translateX(-50%);
     }
 
     .nav-steps a {
@@ -297,6 +443,7 @@ p, li, span, a {
 
     .panel{
         margin-top: -10px;
+        padding: 90px 0px 0px;
     }
 
     /* THE HORIZONTAL SCROLL TRICK */
