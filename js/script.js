@@ -35,7 +35,7 @@ mm.add("(min-width: 768px)", () => {
 
         // 3. Calculate Scroll
         const availableSpace = window.innerWidth - headerWidth;
-        const amountToScroll = realContentWidth - availableSpace + 50; // +50px buffer
+        const amountToScroll = realContentWidth - availableSpace + 300; // +50px buffer
 
         if (amountToScroll > 0) {
             gsap.to(body, {
@@ -288,3 +288,119 @@ document.addEventListener("keydown", (e) => {
         closeModal();
     }
 });
+
+
+/* =========================================================
+   UNIVERSAL LIGHTBOX ENGINE (Desktop + Mobile Touch)
+   ========================================================= */
+const lightbox = document.getElementById('image-lightbox');
+const lbImg = document.getElementById('lightbox-image');
+const lbClose = document.querySelector('.lightbox-close');
+
+let isZoomed = false;
+let isDragging = false;
+let startX, startY;
+let translateX = 0, translateY = 0;
+
+// 1. OPEN LOGIC
+document.addEventListener('click', (e) => {
+    const trigger = e.target.closest('.image-user-journey img, .persona-card img, img.zoomable');
+    if (trigger) {
+        lbImg.src = trigger.src;
+        resetLightbox();
+        lightbox.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        gsap.to(lightbox, {opacity: 1, duration: 0.3});
+    }
+});
+
+function resetLightbox() {
+    isZoomed = false;
+    isDragging = false;
+    translateX = 0;
+    translateY = 0;
+    lbImg.style.cursor = 'zoom-in';
+    gsap.set(lbImg, { x: 0, y: 0, scale: 1, xPercent: -50, yPercent: -50, maxWidth: "90%", maxHeight: "90%" });
+}
+
+// --- HELPER: Get Coordinates for Mouse OR Touch ---
+const getCoords = (e) => {
+    if (e.touches && e.touches.length > 0) {
+        return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    }
+    return { x: e.clientX, y: e.clientY };
+};
+
+// 2. INTERACTION START (MouseDown / TouchStart)
+const startAction = (e) => {
+    if (!isZoomed) return;
+    isDragging = true;
+    const coords = getCoords(e);
+    startX = coords.x - translateX;
+    startY = coords.y - translateY;
+};
+
+// 3. INTERACTION MOVE (MouseMove / TouchMove)
+const moveAction = (e) => {
+    if (!isDragging || !isZoomed) return;
+    // Prevent mobile from scrolling the page while dragging the image
+    if (e.cancelable) e.preventDefault(); 
+
+    const coords = getCoords(e);
+    translateX = coords.x - startX;
+    translateY = coords.y - startY;
+
+    gsap.set(lbImg, { x: translateX, y: translateY });
+};
+
+// 4. INTERACTION END (MouseUp / TouchEnd)
+const endAction = (e) => {
+    const wasDragging = isDragging;
+    isDragging = false;
+
+    // If it was just a tap/click (hardly any movement), toggle zoom
+    if (!wasDragging || (Math.abs(translateX) < 5 && Math.abs(translateY) < 5)) {
+        if (e.target === lbImg) toggleZoom();
+    }
+};
+
+// --- EVENT LISTENERS (Mouse + Touch) ---
+lbImg.addEventListener('mousedown', startAction);
+window.addEventListener('mousemove', moveAction);
+window.addEventListener('mouseup', endAction);
+
+lbImg.addEventListener('touchstart', startAction, { passive: false });
+window.addEventListener('touchmove', moveAction, { passive: false });
+window.addEventListener('touchend', endAction);
+
+function toggleZoom() {
+    isZoomed = !isZoomed;
+    
+    if (isZoomed) {
+        // SMART SCALE: Use 1.5x for mobile, 2.5x for desktop
+        const finalScale = window.innerWidth < 768 ? 1.3 : 1.8;
+        
+        gsap.to(lbImg, {
+            scale: finalScale,
+            maxWidth: "none",
+            maxHeight: "none",
+            duration: 0.4,
+            ease: "power2.out"
+        });
+        lbImg.style.cursor = 'grab';
+    } else {
+        resetLightbox();
+    }
+}
+
+// 5. CLOSE LOGIC
+function closeLightbox() {
+    gsap.to(lightbox, {
+        opacity: 0, duration: 0.2, onComplete: () => {
+            lightbox.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    });
+}
+lbClose.onclick = closeLightbox;
+lightbox.onclick = (e) => { if (e.target !== lbImg) closeLightbox(); };
