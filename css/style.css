@@ -9,7 +9,7 @@
     box-sizing: border-box;
 }
 
-body {
+body, html {
     background-color: #121212; /* Light gray background from your images */
     color: #121212;
     font-family: 'Space Mono', monospace; /* Default body font */
@@ -76,6 +76,7 @@ ul li{
     width: 100vw;
     overflow: hidden;
     background-color: var(--font-color);
+    overscroll-behavior-y: contain;
 
     min-height: 100vh;
 
@@ -83,7 +84,6 @@ ul li{
 
 /* The Generic Section Container */
 .panel {
-    margin-top: 1px;
     position: relative;
     width: 100%;
     display: flex;
@@ -92,6 +92,10 @@ ul li{
     box-sizing: border-box;
     background-color: var(--bg-color);
     border-bottom: 1px solid rgba(0,0,0,0.1); /* Visual separator */
+}
+
+.panel + .panel {
+    margin-top: -1px; /* Pull the next section 1px UP to hide the seam */
 }
 
 /* Wrapper for content */
@@ -279,6 +283,8 @@ ul li{
         margin-right: -20px;      /* Pull right to edge */
         margin-top: 36px;
         z-index: 100;
+        display: block;
+        margin-bottom: 0;
         position: relative;
         bottom: -1px;
     }
@@ -292,15 +298,15 @@ ul li{
 @media (min-width: 768px) {
     
     /* Typography Updates */
-    h1 { font-size: 56px; }
-    h2 { font-size: 42px; }
+    h1 { font-size: 48px; }
+    h2 { font-size: 38px; }
     h3{
         font-family: 'Space Mono', monospace;
         font-weight: 700;
-        font-size: 36px;
+        font-size: 32px;
         justify-self: center;
     }
-    p, li, span { font-size: 20px; }
+    p, li, span { font-size: 16px; }
 
     /* Layout Adjustments */
     .margin-top-mobile { margin-top: 0px; }
@@ -310,13 +316,13 @@ ul li{
 
     /* Navbar Positioning */
     .navbar {
-        top: 60px;
+        top: 38px;
         bottom: auto;
         left: 70%;
         transform: translateX(-50%);
     }
     .nav-steps a {
-        font-size: 20px;
+        font-size: 16px;
         font-style: normal;
     }
 
@@ -324,6 +330,7 @@ ul li{
     .panel {
         margin-top: -10px;
         padding: 20px 20px 0px; /* Default padding for shorter screens */
+        padding-bottom: 0 !important;
     }
 
     /* Horizontal Scroll Container */
@@ -336,7 +343,7 @@ ul li{
         align-items: flex-start;
         margin: 0 0 0 144px;
         padding-left: 0;
-        gap: 0px;
+        gap: 80px;
     }
     
     /* Fixed Header */
@@ -376,7 +383,7 @@ ul li{
     /* Text Column Layout (Short Screens Default) */
     .story-container {
         display: block;
-        height: 486px;      /* Fixed Height */
+        height: 340px;      /* Fixed Height */
         max-height: 500px;
         column-width: 600px;
         column-gap: 48px;
@@ -488,13 +495,21 @@ ul li{
 
     /* Image User Journey */
         .image-user-journey img{
-        width: 830px !important;
+        width: 700px !important;
+    }
+
+        .image-user-journey{
+        margin-top: -22px !important;
     }
 
     /* ADDING CUSTOM CLASSES */
 
     .wc1 {
         width: 3500px;
+    }
+
+    .margin-top-desktop{
+        margin-top: 24px;
     }
 
     .div-title{
@@ -508,7 +523,7 @@ ul li{
     }
 
     .subsection-title-desktop{
-        margin: 64px 0px 0px 64px;
+        margin: 0px 0px 0px 64px;
     }
 }
 

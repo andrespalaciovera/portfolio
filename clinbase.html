@@ -74,10 +74,10 @@
                         <p>For a generation, the promise of technology in medicine was to make doctors and nurses more effective. By 2025, that promise has been broken. Clinicians are now buried under a mountain of clicks, alerts, and after-hours charting, leaving them burned out and disconnected from their patients.</p>
                         <p> I took on the challenge of designing an Electronic Health Record (EHR) experience that brings the focus back to what matters: the human side of medicine.
                         </p>
-                        <h2>The Problem</h2>
+                        <h2 class="margin-top-mobile">The Problem</h2>
                         <p>For more than a decade, the American healthcare system has invested tens of billions of dollars in the arduous task of digitizing patient records and, thus, building an EHR ecosystem. However, the experience from the side of healthcare professionals is not what was expected. Studies show that doctors spend about half of their workday on EHR applications and desktop tasks and less than a third of their time in direct patient interaction. This is compounded by an additional 1-2 hours of work documenting after their shift. There are multiple reports confirming that clinical staff now spend up to two hours on administrative or EHR tasks for every hour of face-to-face patient care.
                         </p>
-                        <h2>The Goal</h2>
+                        <h2 class="margin-top-mobile">The Goal</h2>
                         <p>My goal for the project was to restore humanity to the clinical encounter. The premise was simple: to make the encounter between patient and caregiver a conversation by making technology a helper, not the violinist on a two-person date. </p>
                         <p>Our high-level objectives were:</p>
                         <ol>
@@ -138,36 +138,26 @@
                         <h2 class="margin-top-mobile">Pain points</h2>
                         <p>In my research, I have found three major pain points:</p>
 
-                        <div class="stats-grid">
-                            <div class="stat-item no-break">
-                                <div class="card-container">
-                                    <h2 class="stat-number">1</h2>
-                                    <h4 class="stat-title">Inefficient and Redundant Workflows</h4>
-                                    <p class="stat-desc">Nurses are forced into a process of "double-charting"—capturing patient information on paper in the exam room and then manually re-entering it into a desktop computer later.</p>
-                                </div>
-                            </div>
-                            <div class="stat-item no-break">
-                                <div class="card-container">
-                                    <h2 class="stat-number">2</h2>
-                                    <h4 class="stat-title">High Cognitive Load & Information Overload</h4>
-                                    <p class="stat-desc">Physicians are presented with cluttered, data-dense screens that make it difficult to quickly find the specific information they need during a time-pressed patient visit</p>
-                                </div>
-                            </div>
-                            <div class="stat-item no-break">
-                                <div class="card-container">
-                                    <h2 class="stat-number">3</h2>
-                                    <h4 class="stat-title">The Screen as a Barrier to Conection</h4>
-                                    <p class="stat-desc">The clumsy, desktop-based design of current systems forces physicians to turn their backs on their patients to interact with the software.</p>
-                                </div>
-                            </div>
+                        <ul>
+                            <li>
+                                <strong>Inefficient and Redundant Workflows:</strong> Nurses are forced into a process of "double-charting"—capturing patient information on paper in the exam room and then manually re-entering it into a desktop computer later.
+                            </li>
+                            <li>
+                                <strong>High Cognitive Load & Information Overload:</strong> Physicians are presented with cluttered, data-dense screens that make it difficult to quickly find the specific information they need during a time-pressed patient visit.
+                            </li>
+                            <li>
+                                <strong>The Screen as a Barrier to Connection:</strong> The clumsy, desktop-based design of current systems forces physicians to turn their backs on their patients to interact with the software.
+                            </li>
+                        </ul>
 
-                            
-                        </div>
+                        <p class="margin-top-mobile margin-top-desktop">Based on these three fundamental findings, I developed 4 user personas that allowed me to understand the daily difficulties they faced. The first user person is Maria Sanchez, a busy front-line nurse focused on accuracy and efficiency who needs a faster and more reliable way to chart the patient's vitals in the exam room because to chart twice is a waste of time and it has risk errors. The second user person is Linda Carter, a time-pressed physician who prioritizes patient connection who needs a see a one-glance summary of the patient's problems and medications when I open their chart because searching through all documentation means less time for the patient attention. The third user person is Robert Miller, a senior physician who is easily overwhelmed by complex technology. He needs an easier way to navigate through the EHR of each patient and an easier way to save patient's health data because that consumes an important amount of time from him and any available nurse that helps him. And the fourth is Jessica Willias, a specialized nurse who needs a way to automatically see a graph data of the patience's health over time so that she can instantly identify trends because to waste time searching data and identifying trends may prevent the patient from receiving enough time and education.</p>
+
+                        <p class="margin-top-mobile">Then I proceeded to establish their current user journey map, and with each one I was able to verify the problem of María's double charting, which led her to feel frustrated; or Dr. Carter's constant fatigue, who took her to pajama hours even though the system was supposed to help her perform better in her profession.</p>
+
+                        <p class="margin-top-mobile">Next I present my detailed work on both the user personas created and their respective user journey maps:</p>
                     </div>
 
                     <div class="div-title">
-
-                        <h3 class="margin-top-mobile">User Personas</h3>
                         <div class="glass-card-standalone margin-top-mobile modal-trigger" data-source="maria-sanchez" data-title="User Persona 1">
                             <img src="./assets/Maria Sanchez.webp" alt="Card background" class="card-bg">
                             
@@ -219,7 +209,7 @@
                     
                     <div class="div-title">
 
-                        <div class="glass-card-standalone margin-top-mobile modal-trigger" data-source="linda-carter" data-title="User Persona 2" style="margin-top: 120px;">
+                        <div class="glass-card-standalone margin-top-mobile modal-trigger" data-source="linda-carter" data-title="User Persona 2">
                             <img src="./assets/Linda Miller.webp" alt="Card background" class="card-bg">
                             
                             <div class="glass-overlay">
@@ -270,7 +260,7 @@
                     
                     <div class="div-title">
 
-                        <div class="glass-card-standalone margin-top-mobile modal-trigger" data-source="robert-miller" data-title="User Persona 3" style="margin-top: 120px;">
+                        <div class="glass-card-standalone margin-top-mobile modal-trigger" data-source="robert-miller" data-title="User Persona 3">
                             <img src="./assets/Ben Carter.webp" alt="Card background" class="card-bg">
                             
                             <div class="glass-overlay">
@@ -321,7 +311,7 @@
                     
                     <div class="div-title">
 
-                        <div class="glass-card-standalone margin-top-mobile modal-trigger" data-source="jessica-williams" data-title="User Persona 4" style="margin-top: 120px;">
+                        <div class="glass-card-standalone margin-top-mobile modal-trigger" data-source="jessica-williams" data-title="User Persona 4">
                             <img src="./assets/Jessica Williams.webp" alt="Card background" class="card-bg">
                             
                             <div class="glass-overlay">
@@ -392,6 +382,11 @@
 
                     <div class="image-user-journey">
                         <img src="./assets/uj-Jessica.webp" alt="user-journey" class="zoomable">
+                    </div>
+
+                    <div class="story-container">
+                        <h2>Conclusion</h2>
+                        <p>This process allowed me to understand the difficulties that nurses and doctors face. This is how I learned that they need a true system that makes their profession easier, so that they can dedicate all their talent to what is most important: human contact with the patient.</p>
                     </div>
                     
                 </div>
