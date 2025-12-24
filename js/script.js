@@ -10,7 +10,7 @@ let mm = gsap.matchMedia();
 mm.add("(min-width: 768px)", () => {
     
     const panels = gsap.utils.toArray(".panel");
-    const navLinks = document.querySelectorAll(".nav-steps li a");
+    const navLinks = document.querySelectorAll(".nav-steps li a, a.inline-link[href^='#']");
 
     panels.forEach((panel, i) => {
         
@@ -175,6 +175,27 @@ mm.add("(max-width: 767px)", () => {
         link.addEventListener("click", (e) => {
             e.preventDefault();
             goToStage(i);
+        });
+    });
+
+    // 2. NEW: Inline Paragraph Links for Mobile
+    document.querySelectorAll(".inline-link").forEach((link) => {
+        link.addEventListener("click", (e) => {
+            const href = link.getAttribute("href");
+            
+            // If it's a link to a section (starts with #)
+            if (href && href.startsWith("#")) {
+                e.preventDefault();
+                
+                // Find which panel index matches this ID
+                // We search through the 'panels' array to find the one with the matching ID
+                const targetId = href.substring(1); // remove the #
+                const targetIndex = Array.from(panels).findIndex(panel => panel.id === targetId);
+
+                if (targetIndex !== -1) {
+                    goToStage(targetIndex);
+                }
+            }
         });
     });
 

@@ -41,13 +41,18 @@ h3{
     justify-self: center;
 }
 
-h3, h4, h5, h6, p, span, a {
+h4, h5, h6, p, span, a {
     font-family: 'Space Mono', monospace;
     font-weight: 400;
 }
 
 p, li, span, a {
     font-size: 16px;
+}
+
+a{
+    font-weight: 700;
+    color: var(--font-color);
 }
 
 ul li{
@@ -66,6 +71,14 @@ ul li{
 
 .margin-top-mobile{
     margin-top: 24px;
+}
+
+.text-center{
+    text-align: center;
+}
+
+.zoomable{
+    cursor: zoom-in;
 }
 
 /* =========================================
@@ -302,9 +315,7 @@ ul li{
     h2 { font-size: 38px; }
     h3{
         font-family: 'Space Mono', monospace;
-        font-weight: 700;
-        font-size: 32px;
-        justify-self: center;
+        font-size: 28px;
     }
     p, li, span { font-size: 16px; }
 
@@ -502,10 +513,54 @@ ul li{
         margin-top: -22px !important;
     }
 
+    /* Ideate*/
+
+     .crazy-eights-container img{
+    width: 366px !important;
+   }
+
+   .user-flow-container img{
+    width: 448px !important;
+   }
+
+   .sitemap-container img{
+    width: 472px !important;
+   }
+
+   /* Prototype */
+
+   .wireframe-container img{
+    width: 218px !important;
+   }
+
+   .wireframe-container .digital{
+    width: 160px !important;
+   }
+
     /* ADDING CUSTOM CLASSES */
 
     .wc1 {
         width: 3500px;
+    }
+
+    .wc2{
+        width: 600px;
+    }
+
+    .wc3{
+        width: 1400px;
+    }
+
+    .wc4{
+        width: 676px;
+    }
+
+    .wc5{
+        width: 1942px;
+    }
+
+    .wc600{
+        width: 676px;
     }
 
     .margin-top-desktop{
@@ -525,9 +580,18 @@ ul li{
     .subsection-title-desktop{
         margin: 0px 0px 0px 64px;
     }
+
+    .support-note{
+        margin-top: 16px;
+        font-size: 14px;
+        font-style: italic;
+        opacity: 0.8;
+        width: 300px;
+        flex-shrink: 0;
+    }
 }
 
-@media (min-width: 768px) and (min-height: 970px) {
+@media (min-width: 768px) and (min-height: 782px) {
     
     /* Navbar Adjustment */
     .navbar {
@@ -549,8 +613,10 @@ ul li{
     /* Height adjustment for Story Container (Optional) */
     /* Only include this if you want taller columns on taller screens */
     .story-container {
-        height: 50vh; /* Reverts to flexible height on tall screens */
+        height: 340px; /* Reverts to flexible height on tall screens */
     }
+
+    
 }
 
 /* =========================================
@@ -879,6 +945,7 @@ ul li{
     transition: box-shadow 0.3s ease;
     touch-action: none;
     will-change: transform;
+    border-radius: 8px;
 }
 
 /* Hover effect on the page images */
@@ -905,3 +972,51 @@ ul li{
     justify-content: center;
     font-weight: bold;
 }
+
+/* =========================================
+   Ideate
+   ========================================= */
+
+   .crazy-eights-container img{
+    width: 100%;
+    border: 2px solid var(--font-color);
+    border-radius: 8px;
+    cursor: zoom-in;
+   }
+
+   .user-flow-container img{
+    width: 100%;
+    border: 2px solid var(--font-color);
+    border-radius: 8px;
+    cursor: zoom-in;
+     filter: grayscale(100%);
+   }
+
+   .sitemap-container img{
+    width: 100%;
+    border: 2px solid var(--font-color);
+    border-radius: 8px;
+    cursor: zoom-in;
+     filter: grayscale(100%);
+   }
+
+   /* =========================================
+   Prototype
+   ========================================= */
+
+   .wireframe-container{
+    display: flex;
+    justify-content: center;
+   }
+
+   .wireframe-container img{
+    width: 50%;
+    border: 2px solid var(--font-color);
+    border-radius: 8px;
+    filter: grayscale(100%);
+   }
+
+   .wireframe-container .hd{
+    filter: grayscale(0%);
+    border: none;
+   }
