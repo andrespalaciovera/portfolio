@@ -314,21 +314,45 @@ document.addEventListener("keydown", (e) => {
 /* =========================================================
    UNIVERSAL LIGHTBOX ENGINE (Desktop + Mobile Touch)
    ========================================================= */
+/* =========================================================
+   COMPLETE LIGHTBOX ENGINE (Zoom + Pan + Gallery)
+   ========================================================= */
 const lightbox = document.getElementById('image-lightbox');
 const lbImg = document.getElementById('lightbox-image');
 const lbClose = document.querySelector('.lightbox-close');
+const prevBtn = document.getElementById('prev-btn');
+const nextBtn = document.getElementById('next-btn');
 
 let isZoomed = false;
 let isDragging = false;
 let startX, startY;
 let translateX = 0, translateY = 0;
+let currentGroup = [];
+let currentIndexInGroup = 0;
 
-// 1. OPEN LOGIC
+// 1. OPEN LOGIC & GROUPING
 document.addEventListener('click', (e) => {
     const trigger = e.target.closest('.image-user-journey img, .persona-card img, img.zoomable');
     if (trigger) {
         lbImg.src = trigger.src;
         resetLightbox();
+
+        // Build the gallery group based on the section
+        const parentSection = trigger.closest('.section-body');
+        if (parentSection) {
+            currentGroup = Array.from(parentSection.querySelectorAll('img.zoomable, .image-user-journey img, .persona-card img'));
+            currentIndexInGroup = currentGroup.indexOf(trigger);
+            
+            // Show/Hide buttons if multiple images exist
+            if (currentGroup.length > 1) {
+                prevBtn.style.display = 'block';
+                nextBtn.style.display = 'block';
+            } else {
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
+            }
+        }
+
         lightbox.style.display = 'block';
         document.body.style.overflow = 'hidden';
         gsap.to(lightbox, {opacity: 1, duration: 0.3});
@@ -341,18 +365,40 @@ function resetLightbox() {
     translateX = 0;
     translateY = 0;
     lbImg.style.cursor = 'zoom-in';
-    gsap.set(lbImg, { x: 0, y: 0, scale: 1, xPercent: -50, yPercent: -50, maxWidth: "90%", maxHeight: "90%" });
+    gsap.set(lbImg, { 
+        x: 0, y: 0, scale: 1, xPercent: -50, yPercent: -50, 
+        maxWidth: "90%", maxHeight: "90%", opacity: 1 
+    });
 }
 
-// --- HELPER: Get Coordinates for Mouse OR Touch ---
+// 2. GALLERY NAVIGATION
+function changeImage(direction) {
+    currentIndexInGroup += direction;
+    if (currentIndexInGroup >= currentGroup.length) currentIndexInGroup = 0;
+    if (currentIndexInGroup < 0) currentIndexInGroup = currentGroup.length - 1;
+
+    const nextImg = currentGroup[currentIndexInGroup];
+    
+    gsap.to(lbImg, {
+        opacity: 0, 
+        duration: 0.2, 
+        onComplete: () => {
+            lbImg.src = nextImg.src;
+            resetLightbox();
+            gsap.to(lbImg, { opacity: 1, duration: 0.2 });
+        }
+    });
+}
+
+prevBtn.addEventListener('click', (e) => { e.stopPropagation(); changeImage(-1); });
+nextBtn.addEventListener('click', (e) => { e.stopPropagation(); changeImage(1); });
+
+// 3. ZOOM & PAN LOGIC (Core functionality)
 const getCoords = (e) => {
-    if (e.touches && e.touches.length > 0) {
-        return { x: e.touches[0].clientX, y: e.touches[0].clientY };
-    }
+    if (e.touches && e.touches.length > 0) return { x: e.touches[0].clientX, y: e.touches[0].clientY };
     return { x: e.clientX, y: e.clientY };
 };
 
-// 2. INTERACTION START (MouseDown / TouchStart)
 const startAction = (e) => {
     if (!isZoomed) return;
     isDragging = true;
@@ -361,58 +407,48 @@ const startAction = (e) => {
     startY = coords.y - translateY;
 };
 
-// 3. INTERACTION MOVE (MouseMove / TouchMove)
 const moveAction = (e) => {
     if (!isDragging || !isZoomed) return;
-    // Prevent mobile from scrolling the page while dragging the image
     if (e.cancelable) e.preventDefault(); 
-
     const coords = getCoords(e);
     translateX = coords.x - startX;
     translateY = coords.y - startY;
-
     gsap.set(lbImg, { x: translateX, y: translateY });
 };
 
-// 4. INTERACTION END (MouseUp / TouchEnd)
 const endAction = (e) => {
     const wasDragging = isDragging;
     isDragging = false;
-
-    // If it was just a tap/click (hardly any movement), toggle zoom
-    if (!wasDragging || (Math.abs(translateX) < 5 && Math.abs(translateY) < 5)) {
-        if (e.target === lbImg) toggleZoom();
-    }
+    if (!wasDragging && e.target === lbImg) toggleZoom();
 };
-
-// --- EVENT LISTENERS (Mouse + Touch) ---
-lbImg.addEventListener('mousedown', startAction);
-window.addEventListener('mousemove', moveAction);
-window.addEventListener('mouseup', endAction);
-
-lbImg.addEventListener('touchstart', startAction, { passive: false });
-window.addEventListener('touchmove', moveAction, { passive: false });
-window.addEventListener('touchend', endAction);
 
 function toggleZoom() {
     isZoomed = !isZoomed;
-    
     if (isZoomed) {
-        // SMART SCALE: Use 1.5x for mobile, 2.5x for desktop
         const finalScale = window.innerWidth < 768 ? 1.3 : 1.8;
-        
-        gsap.to(lbImg, {
-            scale: finalScale,
-            maxWidth: "none",
-            maxHeight: "none",
-            duration: 0.4,
-            ease: "power2.out"
-        });
+        gsap.to(lbImg, { scale: finalScale, maxWidth: "none", maxHeight: "none", duration: 0.4 });
         lbImg.style.cursor = 'grab';
     } else {
         resetLightbox();
     }
 }
+
+// 4. EVENT LISTENERS
+lbImg.addEventListener('mousedown', startAction);
+window.addEventListener('mousemove', moveAction);
+window.addEventListener('mouseup', endAction);
+lbImg.addEventListener('touchstart', startAction, { passive: false });
+window.addEventListener('touchmove', moveAction, { passive: false });
+window.addEventListener('touchend', endAction);
+
+// Keyboard Support
+document.addEventListener('keydown', (e) => {
+    if (lightbox.style.display === 'block') {
+        if (e.key === "ArrowRight") changeImage(1);
+        if (e.key === "ArrowLeft") changeImage(-1);
+        if (e.key === "Escape") closeLightbox();
+    }
+});
 
 // 5. CLOSE LOGIC
 function closeLightbox() {
@@ -423,5 +459,6 @@ function closeLightbox() {
         }
     });
 }
+
 lbClose.onclick = closeLightbox;
-lightbox.onclick = (e) => { if (e.target !== lbImg) closeLightbox(); };
+lightbox.onclick = (e) => { if (e.target !== lbImg && e.target !== prevBtn && e.target !== nextBtn) closeLightbox(); };

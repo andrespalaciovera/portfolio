@@ -41,7 +41,11 @@ h3{
     justify-self: center;
 }
 
-h4, h5, h6, p, span, a {
+h4{
+    font-weight: 900;
+}
+
+h5, h6, p, span, a {
     font-family: 'Space Mono', monospace;
     font-weight: 400;
 }
@@ -537,6 +541,12 @@ ul li{
     width: 160px !important;
    }
 
+   /* Test */
+   
+   .result-container img{
+    width: 452px !important;
+   }
+
     /* ADDING CUSTOM CLASSES */
 
     .wc1 {
@@ -557,6 +567,10 @@ ul li{
 
     .wc5{
         width: 1942px;
+    }
+
+    .wc6{
+        width: 5174px;
     }
 
     .wc600{
@@ -796,7 +810,6 @@ ul li{
     position: relative;  /* Needed for layering children */
     
     /* 2. Borders & Corners (As requested) */
-    border: 2px solid rgba(0,0,0); /* Light border to define edges */
     border-radius: 8px; /* Slightly rounded corners to match reference */
     overflow: hidden;    /* Crops image/glass to corners */
     
@@ -973,20 +986,60 @@ ul li{
     font-weight: bold;
 }
 
+/* Navigation Buttons */
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 10002;
+    transition: background 0.3s, opacity 0.3s;
+    display: none; /* Hidden by default, shown via JS for groups */
+}
+
+.nav-btn:hover { background: rgba(255, 255, 255, 0.3); }
+
+#prev-btn { left: 30px; }
+#next-btn { right: 30px; }
+
+/* Hide nav buttons when image is zoomed in (to avoid clutter) */
+#lightbox-image.is-zoomed ~ .nav-btn {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Ensure the lightbox instructions are readable */
+.lightbox-instructions {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 12px;
+    opacity: 0.5;
+    text-align: center;
+    width: 100%;
+}
+
 /* =========================================
    Ideate
    ========================================= */
 
    .crazy-eights-container img{
     width: 100%;
-    border: 2px solid var(--font-color);
     border-radius: 8px;
     cursor: zoom-in;
    }
 
    .user-flow-container img{
     width: 100%;
-    border: 2px solid var(--font-color);
     border-radius: 8px;
     cursor: zoom-in;
      filter: grayscale(100%);
@@ -994,7 +1047,6 @@ ul li{
 
    .sitemap-container img{
     width: 100%;
-    border: 2px solid var(--font-color);
     border-radius: 8px;
     cursor: zoom-in;
      filter: grayscale(100%);
@@ -1011,7 +1063,6 @@ ul li{
 
    .wireframe-container img{
     width: 50%;
-    border: 2px solid var(--font-color);
     border-radius: 8px;
     filter: grayscale(100%);
    }
@@ -1019,4 +1070,19 @@ ul li{
    .wireframe-container .hd{
     filter: grayscale(0%);
     border: none;
+   }
+
+    /* =========================================
+   Test
+   ========================================= */
+
+   .result-container{
+    display: flex;
+    border-radius: 8px;
+    justify-content: center;
+   }
+
+   .result-container img{
+    width: 50%;
+    border-radius: 8px;
    }
