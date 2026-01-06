@@ -16,6 +16,11 @@ body, html {
     overflow-x: hidden; /* Prevents accidental horizontal scrollbar */
 }
 
+body {
+    background-image: radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.35) 1px, transparent 0);
+    background-size: 20px 20px;
+}
+
 .global-wrapper{
     background-color: #FAFAFA;
 }
@@ -83,6 +88,72 @@ ul li{
 
 .zoomable{
     cursor: zoom-in;
+}
+
+/* =========================================
+   FIGMA JAM STYLE CUSTOM CURSOR
+   ========================================= */
+
+body, html {
+    /* 1. Use the SVG as the cursor */
+    /* Note: 'auto' is the fallback if the image fails to load */
+    cursor: url('../assets/cursor-arrowhead-rounded-outline.svg'), auto;
+}
+
+/* 2. Interactive States (Hovering over links/buttons) */
+a, button, .modal-trigger, .zoomable, .glass-card-standalone {
+    /* Use the same cursor but slightly offset or a different version if you like */
+    cursor: url('../assets/cursor-arrowhead-rounded-outline.svg'), pointer;
+}
+
+/* 3. Performance boost for your dot grid background */
+.panel::before {
+    /* Ensure the background doesn't capture mouse events */
+    pointer-events: none; 
+    /* Force GPU rendering to stop the 'stickiness' */
+    transform: translateZ(0);
+}
+
+a, 
+button, 
+.modal-trigger, 
+.nav-steps a, 
+.inline-link {
+    cursor: url('../assets/cursor-arrowhead-rounded-outline-link.svg') 0 0, pointer !important;
+}
+
+/* 3. Image Zoom Cursor (The "Plus" version) */
+/* This covers any image that can be opened in the lightbox */
+.zoomable, 
+.image-user-journey img, 
+.persona-card img,
+#lightbox-image:not(.is-zoomed:active),
+.glass-card-standalone {
+    cursor: url('../assets/cursor-arrowhead-rounded-outline-zoom.svg') 12 12, zoom-in !important;
+}
+
+/* =========================================
+   DOT GRID NOISE BACKGROUND
+   ========================================= */
+
+.panel {
+    /* Keep your existing styles (padding, flex, etc.) */
+    position: relative;
+    
+    /* THE PATTERN */
+    background-color: #ffffff;
+    background-image: radial-gradient(circle at 1px 1px, rgba(119, 119, 119, 0.35) 1px, transparent 0);
+    background-size: 20px 20px;
+    
+    /* Ensure the pattern doesn't scroll at a different speed than the content */
+    background-attachment: local;
+}
+
+/* If you want the pattern to stay fixed while you scroll horizontally in desktop */
+@media (min-width: 768px) {
+    .panel {
+        background-attachment: fixed;
+    }
 }
 
 /* =========================================
@@ -368,8 +439,7 @@ ul li{
         text-align: left;
         margin: 0;
         position: relative;
-        z-index: 5;
-        background-color: var(--bg-color); 
+        z-index: 5; 
     }
 
     /* Scroll Body */
