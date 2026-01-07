@@ -1,0 +1,390 @@
+/* =========================================
+   CORE VARIABLES & FONTS
+   ========================================= */
+:root {
+    --bg-color: #FAFAFA;
+    --font-color: #121212;
+    --dot-color: rgba(119, 119, 119, 0.35);
+    --font-main: 'Space Mono', monospace;
+    --font-heading: "Boldonse", system-ui;
+}
+
+/* =========================================
+   BASE RESET & BACKGROUND
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    background-color: var(--bg-color);
+    color: var(--font-color);
+    font-family: var(--font-main);
+    overflow-x: hidden;
+    line-height: 1.5;
+}
+
+/* The Dotted Pattern applied globally */
+body {
+    background-image: radial-gradient(circle at 1px 1px, var(--dot-color) 1px, transparent 0);
+    background-size: 20px 20px;
+    background-attachment: fixed;
+}
+
+/* =========================================
+   SIMPLIFIED TYPOGRAPHY
+   ========================================= */
+h1 {
+    font-family: var(--font-heading);
+    font-size: 2.25rem; /* 36px */
+    font-weight: 400;
+}
+
+h2 {
+    font-family: var(--font-main);
+    font-size: 2rem; /* 32px */
+    font-weight: 700;
+}
+
+h3 {
+    font-family: var(--font-main);
+    font-size: 1.5rem; /* 24px */
+    font-weight: 700;
+}
+
+p, li, a {
+    font-family: var(--font-main);
+    font-size: 1rem; /* 16px */
+    font-weight: 400;
+}
+
+a {
+    font-weight: 700;
+    color: var(--font-color);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.margin-top-mobile{
+    margin-top: 24px;
+}
+
+/* =========================================
+   FIGMA-STYLE CURSOR (NATIVE)
+   ========================================= */
+body {
+    cursor: url('../assets/cursor-arrowhead-rounded-outline.svg'), auto;
+}
+
+a, button, .modal-trigger, .zoomable {
+    cursor: url('../assets/cursor-arrowhead-rounded-outline-link.svg') 0 0, pointer !important;
+}
+
+.zoomable {
+    cursor: url('../assets/cursor-arrowhead-rounded-outline-zoom.svg') 0 0, zoom-in !important;
+}
+
+.panel-content{
+    padding: 2rem 1rem;
+}
+
+.links{
+    display: flex;
+}
+
+/* =========================================
+   UTILITIES
+   ========================================= */
+
+.text-center { text-align: center; }
+.desktop-only { display: none; }
+
+
+/* =========================================
+   STANDALONE GLASS CARD COMPONENT
+   ========================================= */
+
+.glass-card-standalone {
+    /* 1. Define Size & Aspect Ratio */
+    width: 200px; /* Set a base width (it will scale if parent is smaller) */
+    aspect-ratio: 3 / 4; /* Enforces a tall, accurate portrait ratio */
+    position: relative;  /* Needed for layering children */
+    
+    /* 2. Borders & Corners (As requested) */
+    border-radius: 8px; /* Slightly rounded corners to match reference */
+    overflow: hidden;    /* Crops image/glass to corners */
+    
+    /* 3. Layout (Pushes glass panel to bottom) */
+    display: flex;
+    align-items: flex-end;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Optional subtle shadow */
+
+    justify-self: center;
+
+    /* 1. PREPARE ANIMATION */
+    /* Smoothly animate changes over 0.4 seconds */
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s ease;
+    
+    /* Initial state (sitting flat) */
+    transform: translateY(0);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+    cursor: pointer; /* Shows it is interactive */
+}
+
+.glass-card-standalone:hover {
+    /* Lift the card up by 12 pixels */
+    transform: translateY(-12px);
+    
+    /* Create a diffuse, soft shadow underneath to simulate height */
+    box-shadow: 0 20px 30px -10px rgba(0,0,0,0.2);
+}
+
+/* The Background Image */
+.card-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures image fills space completely */
+    z-index: 0;        /* Sits at the back */
+}
+
+/* The Glass Overlay Panel */
+.glass-overlay {
+    position: relative;
+    z-index: 1; /* Sits on top of image */
+    width: 100%;
+    
+    /* --- THE GLASS EFFECT --- */
+    /* Semi-transparent white background */
+    background: rgba(255, 255, 255, 0.25); 
+    /* The blur filter that distorts the image behind it */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px); /* Safari support */
+    border-top: 1px solid rgba(255,255,255,0.3); /* Subtle top edge shine */
+    
+    /* Spacing & Content */
+    padding: 24px;
+    text-align: left;
+    color: var(--font-color, #000);
+}
+
+/* Typography inside the glass */
+.glass-title {
+    font-family: 'Space Mono', monospace; /* Assuming your font */
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 12px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.glass-desc {
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 0;
+    font-weight: 500;
+    opacity: 0.9; /* Slightly softer text for better contrast */
+}
+
+/*Personas card*/
+
+.persona-card h2 {
+    margin-top: 0;        /* No space above the very first title */
+    margin-bottom: 24px;  /* Space between Name and Quote */
+    font-size: 32px;      /* Make the name nice and big */
+}
+
+.persona-card h3 {
+    margin-top: 40px;     /* Big breath before new sections (Goals/Frustrations) */
+    margin-bottom: 16px;  /* Small breath between Title and List */
+    font-size: 24px;
+    text-transform: uppercase;
+}
+
+/* Optional: Add space between list items so they don't look cramped */
+.persona-card li {
+    margin-bottom: 12px;
+}
+
+/* FIX: Make the link fill the entire card so the image is clickable */
+.glass-card-standalone a {
+    display: flex;             /* Turn the link into a layout container */
+    align-items: flex-end;     /* Push text to bottom (matches parent behavior) */
+    width: 100%;               /* Fill Width */
+    height: 100%;              /* Fill Height */
+    text-decoration: none;     /* Remove default underline */
+    position: relative;        /* Ensure absolute children position correctly */
+    z-index: 2;                /* Ensure it sits above the background */
+}
+
+/* =========================================
+   HORIZONTAL SCROLL ENGINE
+   ========================================= */
+
+/* DESKTOP HORIZONTAL TRANSFORMATION */
+@media (min-width: 768px) {
+
+    .margin-top-mobile{
+        margin-top: 0;
+    }
+
+    .margin-top-desktop{
+        margin-top: 24px;
+    }
+
+    .wc600{
+        width: 676px !important;
+    }
+
+    .panel {
+        padding: 20px 20px 0;
+        margin-top: -1px; /* Hides seams */
+    }
+
+    .panel-content {
+        display: flex;
+        flex-direction: column;
+        width: fit-content; 
+        min-height: 100vh;
+        align-items: flex-start;
+        margin: 0;
+        gap: 0;
+        justify-content: center;
+    }
+
+    /* Fixed Stage Title */
+    .section-header {
+        flex-shrink: 0;
+        position: relative;
+        width: 600px;
+        z-index: 5;
+    }
+
+    /* The part that actually slides */
+    .section-body {
+        display: flex;
+        flex-direction: row; /* Content moves left-to-right */
+        gap: 48px;
+        flex-shrink: 0;
+        position: relative;
+        z-index: 1;
+        padding-left: 16vw; 
+        padding-right: 10vw; 
+        gap: 10vw;
+    }
+
+    /* Standardized text columns */
+    .story-container {
+        display: block;
+        height: 340px;
+        column-width: 600px;
+        column-gap: 48px;
+        column-fill: auto;
+        flex-shrink: 0;
+        width: max-content;
+    }
+
+    .mega-title span.char {
+    display: inline-block; /* Essential for transforms/filters to work on text */
+    min-width: 0.2em;      /* Ensures spaces have width */
+    will-change: filter;
+}
+
+}
+@media (min-width: 768px) {
+    .desktop-only { display: block; }
+    
+    h1 { font-size: 3rem; } /* 48px */
+
+    .title{
+        width: 18rem;
+    }
+    
+    .mega-title {
+        font-family: var(--font-heading);
+        font-size: 8rem;
+        flex-shrink: 0;
+        white-space: nowrap;
+        width: auto;
+
+    }
+
+    /*Glass-card*/
+    
+    .glass-card-standalone {
+        width: 232px !important;
+    }
+
+    .glass-overlay {
+        /* Ensure the overlay can grow smoothly */
+        transition: padding 0.4s ease;
+        /* Reduce bottom padding slightly when closed for a tighter look */
+        padding: 24px 24px 16px; 
+    }
+
+    .glass-title {
+        /* Remove or reduce bottom margin when the desc is hidden 
+           to keep the title centered in the glass if you prefer */
+        margin-bottom: 0px; 
+        transition: margin-bottom 0.4s ease;
+    }
+
+    .glass-desc {
+        /* 1. Hide it */
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        
+        /* 2. Position it lower for the "slide up" effect */
+        transform: translateY(20px);
+        
+        /* 3. Smooth transition */
+        transition: 
+            max-height 0.4s ease, 
+            opacity 0.4s ease, 
+            transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+            margin-top 0.4s ease;
+    }
+
+    /* --- THE HOVER TRIGGER --- */
+    .glass-card-standalone:hover .glass-desc {
+        /* 1. Reveal it */
+        max-height: 150px; /* High enough to fit your text */
+        opacity: 1;
+        
+        /* 2. Slide to final position */
+        transform: translateY(0);
+        
+        /* 3. Add space above it now that it's visible */
+        margin-top: 12px;
+    }
+
+    .glass-card-standalone:hover .glass-title {
+        /* Restore the gap between title and desc on hover */
+        margin-bottom: 0px; 
+    }
+    
+    .glass-card-standalone:hover .glass-overlay {
+        padding-bottom: 24px;
+    }
+
+}
+
+/* =========================================
+   PAGE TRANSITION OVERLAY
+   ========================================= */
+.page-transition-curtain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000; /* Black screen */
+    opacity: 0;                /* Invisible by default */
+    z-index: 99999;            /* On top of EVERYTHING */
+    pointer-events: none;      /* Let clicks pass through when hidden */
+}

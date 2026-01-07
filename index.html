@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Fonts -->
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Boldonse:wght@400;700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+<svg style="position: absolute; width: 0; height: 0; overflow: hidden;" aria-hidden="true">
+      <defs>
+        <filter id="liquid-glitch" x="-20%" y="-20%" width="140%" height="140%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.002 0.35" numOctaves="1" result="noise" />
+          <feDisplacementMap id="liquid-disp" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+      </defs>
+    </svg>
+
+    
+    <section class="panel">
+        <div class="panel-content">
+            
+            <div class="section-body">
+                
+                <div class="title">
+                    <h1>Welcome I'm Andres</h1>
+                    <div class="links margin-top-mobile">
+                        <a href="https://www.linkedin.com/in/andres-palacio-623204208/"><img src="./assets/icon-linkedin.svg" alt="linkedin"></a>
+                        <a href="mailto:andrespalaciovera@gmail.com"> <img src="./assets/icon-mail.svg" alt="email" style="width: 50px;"></a>
+                    </div>
+                </div>
+
+                <div class="story-container wc600">
+
+                    <h3 class="margin-top-mobile margin-top-desktop">
+                        A UX designer specializing in mobile apps, websites, and Shopify stores. I build intuitive and scalable digital solutions that solve real-world problems and simplify people's lives. Currently based on Medellín.
+                    </h3>
+                </div>
+
+                <h1 class="mega-title margin-top-mobile"> Here's some of my work:</h1>
+
+                <div class="glass-card-standalone margin-top-mobile">
+                    <a href="./clinbase.html">
+                        <img src="./assets/img-ClinBase.webp" alt="Card background" class="card-bg">
+                                
+                        <div class="glass-overlay">
+                            <h3 class="glass-title">ClinBase</h3>
+                            <p class="glass-desc desktop-only">An EHR application that facilitates and streamlines medical practice</p>
+                        </div>
+                    </a>
+                </div>
+                        
+
+            </div> 
+        </div> 
+
+    </section>
+
+    <div class="page-transition-curtain"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js"></script>
+
+   <script src="./js/index.js"></script>
+    
+</body>
+</html>
