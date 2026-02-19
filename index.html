@@ -3,73 +3,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Andres | UX/Product Designer</title>
+    <link rel="icon" type="image/svg+xml" href="./assets/index/img-logo.svg">
 
-    <!-- Fonts -->
-     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- Fonts -->    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Boldonse:wght@400;700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
+    <!-- Styles -->
     <link rel="stylesheet" href="./css/index.css">
-</head>
-<body>
-<svg style="position: absolute; width: 0; height: 0; overflow: hidden;" aria-hidden="true">
-      <defs>
-        <filter id="liquid-glitch" x="-20%" y="-20%" width="140%" height="140%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.002 0.35" numOctaves="1" result="noise" />
-          <feDisplacementMap id="liquid-disp" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" />
-        </filter>
-      </defs>
-    </svg>
 
-    
-    <section class="panel">
-        <div class="panel-content">
+    <!-- 3D Google Model Viewer 3D -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+</head>
+
+<body>
+
+    <div class="container">
+        <header class="navbar">
+            <div class="logo-icon">
+                <img src="./assets/index/img-logo.svg" alt="logo">
+            </div>
+            <div class="nav-links">
+                <a href="mailto:andres@andresaudits.com class="btn-label" style="font-size: 16px;">Let's talk</a>
+            </div>
+        </header>
+
+        <main class="pdp-grid">
             
-            <div class="section-body">
+            <div class="grid-visual">
+                <div class="carousel">
+                    <button class="carousel-btn" id="prevBtn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                    </button>
+                    
+                    <div class="carousel-content">
+                        
+                        <div class="carousel-slide active">
+                            <model-viewer 
+                                id="legoModel"
+                                src="./assets/index/andres-lego-3d.glb" 
+                                alt="A 3D model of Andres" 
+                                shadow-intensity="1">
+                                <div slot="progress-bar"></div>
+                            </model-viewer>
+                        </div>
+                        
+                        <div class="carousel-slide">
+                            <img src="./assets/index/image-Andres-package.png" alt="Box Image" class="product-image">
+                        </div>
+
+                        <div class="carousel-slide">
+                            <img src="./assets/index/image-Andres-office.png" alt="Set Image" class="product-image">
+                        </div>
+
+                    </div>
+
+                    <button class="carousel-btn" id="nextBtn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid-details">
+                <div class="title-box">
+                    <h1>Andres — UX/Product Designer. JavaScript inside!</h1>
+                </div>
                 
-                <div class="title">
-                    <h1>Welcome I'm Andres</h1>
-                    <div class="links margin-top-mobile">
-                        <a href="https://www.linkedin.com/in/andres-palacio-623204208/"><img src="./assets/icon-linkedin.svg" alt="linkedin"></a>
-                        <a href="mailto:andrespalaciovera@gmail.com"> <img src="./assets/icon-mail.svg" alt="email" style="width: 50px;"></a>
+                <h3 style="margin-bottom: 12px;">
+                    UX/UI &nbsp;|&nbsp; Ecommerce &nbsp;|&nbsp; Web Design
+                </h3>
+
+                <p style="margin-bottom: 12px;">Andres designs clear, usable digital products and brings them to life with front-end skills in JavaScript and Shopify Liquid. From ecommerce journeys to complex product experiences, he helps teams reduce friction, align design with development, and ship solutions that actually work.</p>
+
+                <a href="./assets/index/doc-resume-andres.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                    <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                    <span class="btn-label">View resume</span>
+                </a>
+
+                <a href="mailto:hello@andresaudits.com" class="btn btn-primary">
+                    <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                    <span class="btn-label">Add to team</span>
+                </a>
+                <p class="availability">Available for new projects</p>
+            </div>
+
+            <div class="grid-cases">
+                <h2 class="section-title brand-font">See it in action!</h2>
+                
+                <a href="./clinbase.html">
+                    <div class="case-card">
+                        <!-- <img src="./assets/index/img-thubnail-Clinbase.webp" alt="ClinBase App" class="case-img"> -->
+                        <div class="case-info">
+                            <h4>ClinBase - Healthcare SaaS</h4>
+                            <p style="margin-bottom: 0;">Introduced AI-assisted workflow to remove manual entry</p>
+                            <div class="case-meta">Role: UX designer &nbsp;&nbsp;|&nbsp;&nbsp; Duration: 5 months</div>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" aria-disabled="true">
+                    <div class="case-card">
+                        <!-- <img src="./assets/index/img-thubnail-petcare.webp" alt="PetCare Ecommerce project" class="case-img"> -->
+                        <div class="case-info">
+                            <h4>PetCare — Ecommerce for Pets</h4>
+                            <p style="margin-bottom: 0;">Case study in progress — deep dive coming soon.</p>
+                            <div class="case-meta">
+                                Full release: April 01, 2026
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" aria-disabled="true">
+                    <div class="case-card">
+                        <!-- <img src="./assets/index/img-thubnail-secret.webp" alt="Upcoming UX case study" class="case-img"> -->
+                        <div class="case-info">
+                            <h4>New Product Case Study — Confidential</h4>
+                            <p style="margin-bottom: 0;">Case study in progress — documenting the problem, process, and outcomes.</p>
+                            <div class="case-meta">
+                                Details to be revealed soon
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+            <div class="grid-faqs">
+                <div class="accordion">
+                    <button class="accordion-header">
+                        Features
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="accordion-content">
+                        <ul>
+                            <li>End-to-end UX/UI Design</li>
+                            <li>E-commerce Conversion Rate Optimization (CRO)</li>
+                            <li>Rapid Prototyping & Wireframing</li>
+	                        <li>Design System Architecture</li>
+                            <li>User Research & Usability Testing</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="accordion">
+                    <button class="accordion-header">
+                        What's in the box?
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="accordion-content">
+                        <ul>
+                            <li>1x Fully functional Product Designer.</li>
+                            <li>Pixel-perfect Figma files and interactive prototypes.</li>
+                            <li>Strategic thinking aligned with business goals.</li>
+                            <li>Seamless developer handoff documentation.</li>
+                            <li>Passion for design included.</li>
+                        </ul>
                     </div>
                 </div>
 
-                <div class="story-container wc600">
-
-                    <h3 class="margin-top-mobile margin-top-desktop">
-                        A UX designer specializing in mobile apps, websites, and Shopify stores. I build intuitive and scalable digital solutions that solve real-world problems and simplify people's lives. Currently based on Medellín.
-                    </h3>
+                <div class="accordion">
+                    <button class="accordion-header">
+                        Compatibility
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="accordion-content">
+                        <ul>
+                            <li>Software: Fully compatible with Figma, Adobe Illustrator & Photoshop.</li>
+                            <li>Environments: Plugs seamlessly into Agile, Scrum, and cross-functional teams (Engineering, PMs, Marketing).</li>
+                            <li>Languages: Fluent in English, Spanish, and Developer-speak (understanding of HTML/CSS/React constraints).</li>
+                        </ul>
+                    </div>
                 </div>
+            </div>
 
-                <h1 class="mega-title margin-top-mobile"> Here's some of my work:</h1>
+        </main>
+    </div>
 
-                <div class="glass-card-standalone margin-top-mobile">
-                    <a href="./clinbase.html">
-                        <img src="./assets/img-ClinBase.webp" alt="Card background" class="card-bg">
-                                
-                        <div class="glass-overlay">
-                            <h3 class="glass-title">ClinBase</h3>
-                            <p class="glass-desc desktop-only">An EHR application that facilitates and streamlines medical practice</p>
-                        </div>
-                    </a>
+    <footer>
+        <div class="container footer-content">
+            <div class="mobile-centered">
+                <div style="margin-bottom: 16px;">
+                    <a href="https://www.linkedin.com/in/andres-palacio-623204208/" target="_blank" rel="noopener noreferrer"><img src="./assets/icon-linkedin.svg" alt="LinkedIn"></a>
                 </div>
-                        
+                <div style="margin-bottom: 16px;">
+                    <a href="mailto:andres@andresaudits.com">andres@andresaudits.com</a>
+                </div>
+                <p>Medellin – Open to remote US roles</p>
+            </div>
+            <div class="footer-logo">
+                <img src="./assets/index/img-logo.svg" alt="Andres Logo" style="width: 50px;filter: brightness(0) invert(1);">
+            </div>
+        </div>
+        <p class="little">© 2026 Andres Palacio</p>
+    </footer>
 
-            </div> 
-        </div> 
+    <div class="modal-overlay" id="orderModal">
+        <div class="modal-content">
+            <img src="./assets/index/img-Andres-jump.webp" alt="Happy Lego" class="modal-image">
+            
+            <div class="modal-text">
+                <h3>Your Andres is ready</h3>
+                <p>You are going to be redirected to your Email...</p>
+            </div>
+        </div>
+    </div>
 
-    </section>
+    <script>
+        const accordions = document.querySelectorAll('.accordion');
+        
+        accordions.forEach(acc => {
+            const header = acc.querySelector('.accordion-header');
+            header.addEventListener('click', () => {
+                accordions.forEach(otherAcc => {
+                    if (otherAcc !== acc) otherAcc.classList.remove('active');
+                });
+                acc.classList.toggle('active');
+            });
+        });
+    </script>
 
-    <div class="page-transition-curtain"></div>
-
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js"></script>
-
-   <script src="./js/index.js"></script>
-    
+    <script src="./js/index.js"></script>
 </body>
 </html>

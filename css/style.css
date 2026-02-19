@@ -1,6 +1,6 @@
 :root{
-    --bg-color: #FAFAFA; /* Light gray background from your images */
-    --font-color: #121212; /* Dark text color from your images */
+    --bg-color: #f8f8f8; /* Light gray background from your images */
+    --font-color: #333333; /* Dark text color from your images */
 }
 
 * {
@@ -11,7 +11,7 @@
 
 body, html {
     background-color: #121212; /* Light gray background from your images */
-    color: #121212;
+    color: #333333;
     font-family: 'Space Mono', monospace; /* Default body font */
     overflow-x: hidden; /* Prevents accidental horizontal scrollbar */
 }
@@ -91,48 +91,6 @@ ul li{
 }
 
 /* =========================================
-   FIGMA JAM STYLE CUSTOM CURSOR
-   ========================================= */
-
-body, html {
-    /* 1. Use the SVG as the cursor */
-    /* Note: 'auto' is the fallback if the image fails to load */
-    cursor: url('../assets/cursor-arrowhead-rounded-outline.svg'), auto;
-}
-
-/* 2. Interactive States (Hovering over links/buttons) */
-a, button, .modal-trigger, .zoomable, .glass-card-standalone {
-    /* Use the same cursor but slightly offset or a different version if you like */
-    cursor: url('../assets/cursor-arrowhead-rounded-outline.svg'), pointer;
-}
-
-/* 3. Performance boost for your dot grid background */
-.panel::before {
-    /* Ensure the background doesn't capture mouse events */
-    pointer-events: none; 
-    /* Force GPU rendering to stop the 'stickiness' */
-    transform: translateZ(0);
-}
-
-a, 
-button, 
-.modal-trigger, 
-.nav-steps a, 
-.inline-link {
-    cursor: url('../assets/cursor-arrowhead-rounded-outline-link.svg') 0 0, pointer !important;
-}
-
-/* 3. Image Zoom Cursor (The "Plus" version) */
-/* This covers any image that can be opened in the lightbox */
-.zoomable, 
-.image-user-journey img, 
-.persona-card img,
-#lightbox-image:not(.is-zoomed:active),
-.glass-card-standalone {
-    cursor: url('../assets/cursor-arrowhead-rounded-outline-zoom.svg') 12 12, zoom-in !important;
-}
-
-/* =========================================
    DOT GRID NOISE BACKGROUND
    ========================================= */
 
@@ -164,7 +122,7 @@ button,
     width: 100vw;
     overflow: hidden;
     background-color: var(--font-color);
-    overscroll-behavior-y: contain;
+    /* overscroll-behavior-y: contain; */
 
     min-height: 100vh;
 
@@ -241,7 +199,6 @@ button,
    4. COMPONENT: ROLE CARD (Intro Section)
    ========================================= */
 .role-card {
-    border: 2px solid #000;
     padding: 20px;
     margin-bottom: 24px;
     border-radius: 8px;
@@ -285,13 +242,13 @@ button,
     width: auto;
     max-width: calc(100% - 40px); /* Ensure it doesn't touch screen edges */
     height: auto;
-    background: var(--font-color); /* Dark background like the image */
+    border: 2px solid var(--font-color);
+    background-color: var(--bg-color);
     z-index: 99;
     display: flex;
     align-items: center;
     padding: 12px 24px; /* Padding gives it the capsule size */
-    border-radius: 8px; /* Makes it perfectly round */
-    box-shadow: 0 8px 20px rgba(0,0,0,0.25); /* Adds the floating effect */
+    border-radius: 16px; /* Makes it perfectly round */
 }
 
 .nav-wrapper {
@@ -332,9 +289,8 @@ button,
 
 .nav-steps a {
     text-decoration: none;
-    color: rgba(255, 255, 255, 0.6); /* Inactive state is slightly faded white */
+    color: var(--font-color);
     font-size: 14px;
-    text-transform: uppercase;
     transition: color 0.3s ease;
 }
 
@@ -352,7 +308,7 @@ button,
 
 /* Active State (The white underlined one in your image) */
 .nav-steps .active a {
-    color: #fff; /* Pure white */
+    color: var(--font-color);
     text-decoration: underline;
     text-underline-offset: 4px;
 }
@@ -628,7 +584,7 @@ button,
     }
 
     .wc3{
-        width: 1400px;
+        width: 1512px !important;
     }
 
     .wc4{
@@ -699,6 +655,10 @@ button,
     .story-container {
         height: 340px; /* Reverts to flexible height on tall screens */
     }
+/*     
+    .wc3{
+        width: 1400px;
+    } */
 
     
 }

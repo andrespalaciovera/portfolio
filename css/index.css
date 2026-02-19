@@ -1,390 +1,511 @@
-/* =========================================
-   CORE VARIABLES & FONTS
-   ========================================= */
-:root {
-    --bg-color: #FAFAFA;
-    --font-color: #121212;
-    --dot-color: rgba(119, 119, 119, 0.35);
-    --font-main: 'Space Mono', monospace;
-    --font-heading: "Boldonse", system-ui;
-}
 
 /* =========================================
-   BASE RESET & BACKGROUND
-   ========================================= */
+    CSS VARIABLES & DESIGN TOKENS
+    ========================================= */
+:root {
+    --bg-color: #f8f8f8;
+    --main-color: #333333;
+    --white: #ffffff;
+    
+    /* Dotted Grid Variables */
+    --dot-color: rgba(51, 51, 51, 0.15);
+    --dot-size: 1.5px;
+    --dot-spacing: 24px;
+}
+
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
-body, html {
-    background-color: var(--bg-color);
-    color: var(--font-color);
-    font-family: var(--font-main);
-    overflow-x: hidden;
-    line-height: 1.5;
-}
-
-/* The Dotted Pattern applied globally */
 body {
-    background-image: radial-gradient(circle at 1px 1px, var(--dot-color) 1px, transparent 0);
-    background-size: 20px 20px;
-    background-attachment: fixed;
+    background-color: var(--bg-color);
+    color: var(--main-color);
+    font-family: 'Space Mono', monospace;
+    line-height: 1.5;
+    
+    /* The Dotted Grid Background */
+    background-image: radial-gradient(var(--dot-color) var(--dot-size), transparent var(--dot-size));
+    background-size: var(--dot-spacing) var(--dot-spacing);
 }
 
-/* =========================================
-   SIMPLIFIED TYPOGRAPHY
-   ========================================= */
-h1 {
-    font-family: var(--font-heading);
-    font-size: 2.25rem; /* 36px */
-    font-weight: 400;
-}
-
-h2 {
-    font-family: var(--font-main);
-    font-size: 2rem; /* 32px */
-    font-weight: 700;
-}
-
-h3 {
-    font-family: var(--font-main);
-    font-size: 1.5rem; /* 24px */
-    font-weight: 700;
-}
-
-p, li, a {
-    font-family: var(--font-main);
-    font-size: 1rem; /* 16px */
-    font-weight: 400;
+img {
+    max-width: 100%;
+    display: block;
 }
 
 a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* =========================================
+    TYPOGRAPHY (Mobile First)
+    ========================================= */
+h1, h2, .brand-font {
+    font-family: 'Boldonse', 'Arial Black', Impact, sans-serif;
+}
+
+h1 { font-size: 20px; line-height: 1.5; margin-bottom: 16px; }
+h2 { font-size: 16px; margin-bottom: 12px; }
+h3 { font-size: 20px; font-weight: 400; }
+h4 { font-size: 16px; font-weight: 700; }
+p, a { font-size: 16px; margin-bottom: 16px; }
+ul li { font-size: 16px; margin-bottom: 8px;  list-style-type: disc !important;}
+
+.btn-label {
+    font-family: 'Space Mono', monospace;
     font-weight: 700;
-    color: var(--font-color);
-    text-decoration: underline;
-    text-underline-offset: 4px;
+    font-size: 20px;
 }
 
-.margin-top-mobile{
-    margin-top: 24px;
+model-viewer::part(default-progress-bar) {
+    display: none;
 }
 
 /* =========================================
-   FIGMA-STYLE CURSOR (NATIVE)
-   ========================================= */
-body {
-    cursor: url('../assets/cursor-arrowhead-rounded-outline.svg'), auto;
+    LAYOUT CONTAINERS
+    ========================================= */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 0;
 }
 
-a, button, .modal-trigger, .zoomable {
-    cursor: url('../assets/cursor-arrowhead-rounded-outline-link.svg') 0 0, pointer !important;
-}
-
-.zoomable {
-    cursor: url('../assets/cursor-arrowhead-rounded-outline-zoom.svg') 0 0, zoom-in !important;
-}
-
-.panel-content{
-    padding: 2rem 1rem;
-}
-
-.links{
+/* =========================================
+    NAVBAR
+    ========================================= */
+.navbar {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid var(--main-color);
+    border-radius: 16px;
+    padding: 12px 24px;
+    margin-bottom: 32px;
+    background-color: var(--bg-color);
 }
 
-/* =========================================
-   UTILITIES
-   ========================================= */
-
-.text-center { text-align: center; }
-.desktop-only { display: none; }
-
+.logo-icon img { width: 24px; height: 24px; fill: var(--main-color); }
 
 /* =========================================
-   STANDALONE GLASS CARD COMPONENT
-   ========================================= */
-
-.glass-card-standalone {
-    /* 1. Define Size & Aspect Ratio */
-    width: 200px; /* Set a base width (it will scale if parent is smaller) */
-    aspect-ratio: 3 / 4; /* Enforces a tall, accurate portrait ratio */
-    position: relative;  /* Needed for layering children */
-    
-    /* 2. Borders & Corners (As requested) */
-    border-radius: 8px; /* Slightly rounded corners to match reference */
-    overflow: hidden;    /* Crops image/glass to corners */
-    
-    /* 3. Layout (Pushes glass panel to bottom) */
+    PRODUCT LAYOUT (Mobile Single Column)
+    ========================================= */
+.pdp-grid {
     display: flex;
-    align-items: flex-end;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Optional subtle shadow */
-
-    justify-self: center;
-
-    /* 1. PREPARE ANIMATION */
-    /* Smoothly animate changes over 0.4 seconds */
-    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s ease;
-    
-    /* Initial state (sitting flat) */
-    transform: translateY(0);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
-    cursor: pointer; /* Shows it is interactive */
+    flex-direction: column;
+    gap: 48px;
 }
 
-.glass-card-standalone:hover {
-    /* Lift the card up by 12 pixels */
-    transform: translateY(-12px);
-    
-    /* Create a diffuse, soft shadow underneath to simulate height */
-    box-shadow: 0 20px 30px -10px rgba(0,0,0,0.2);
+/* --- CAROUSEL --- */
+.carousel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    gap: 16px;
+    background: var(--white);
+    border-radius: 16px;
+    padding: 32px 16px;
+    border: 2px solid transparent;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    min-height: 450px; 
 }
 
-/* The Background Image */
-.card-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
+.carousel-btn {
+    background: none;
+    border: 1px solid var(--main-color);
+    border-radius: 8px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    
+    /* THE MAGIC FIX 👇 */
+    flex-shrink: 0; 
+}
+
+.carousel-btn svg { 
+    width: 20px; 
+    height: 20px; 
+    stroke: var(--main-color); 
+}
+
+.product-image {
+    max-width: 500px;
+    height: auto; /* Ensures the image scales proportionally */
+}
+
+.carousel-content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ensures image fills space completely */
-    z-index: 0;        /* Sits at the back */
+    overflow: hidden; /* Prevents large images from breaking the container */
 }
 
-/* The Glass Overlay Panel */
-.glass-overlay {
-    position: relative;
-    z-index: 1; /* Sits on top of image */
+.carousel-slide {
+    display: none; 
     width: 100%;
-    
-    /* --- THE GLASS EFFECT --- */
-    /* Semi-transparent white background */
-    background: rgba(255, 255, 255, 0.25); 
-    /* The blur filter that distorts the image behind it */
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px); /* Safari support */
-    border-top: 1px solid rgba(255,255,255,0.3); /* Subtle top edge shine */
-    
-    /* Spacing & Content */
-    padding: 24px;
-    text-align: left;
-    color: var(--font-color, #000);
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.4s ease-in-out;
 }
 
-/* Typography inside the glass */
-.glass-title {
-    font-family: 'Space Mono', monospace; /* Assuming your font */
-    font-size: 20px;
-    font-weight: 700;
-    margin: 0 0 12px 0;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+.carousel-slide.active {
+    display: flex; 
 }
 
-.glass-desc {
-    font-size: 14px;
-    line-height: 1.4;
-    margin: 0;
-    font-weight: 500;
-    opacity: 0.9; /* Slightly softer text for better contrast */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.98); }
+    to { opacity: 1; transform: scale(1); }
 }
 
-/*Personas card*/
-
-.persona-card h2 {
-    margin-top: 0;        /* No space above the very first title */
-    margin-bottom: 24px;  /* Space between Name and Quote */
-    font-size: 32px;      /* Make the name nice and big */
+/* Style for the 3D Model */
+model-viewer {
+    width: 100%;
+    height: 350px;
+    --poster-color: transparent; /* Blends with your white background */
 }
 
-.persona-card h3 {
-    margin-top: 40px;     /* Big breath before new sections (Goals/Frustrations) */
-    margin-bottom: 16px;  /* Small breath between Title and List */
-    font-size: 24px;
-    text-transform: uppercase;
-}
+/* --- PRODUCT INFO --- */
 
-/* Optional: Add space between list items so they don't look cramped */
-.persona-card li {
+.title-box {
+    border-top: 2px solid var(--main-color);
+    border-bottom: 2px solid var(--main-color);
+    padding: 12px 0;
     margin-bottom: 12px;
 }
 
-/* FIX: Make the link fill the entire card so the image is clickable */
-.glass-card-standalone a {
-    display: flex;             /* Turn the link into a layout container */
-    align-items: flex-end;     /* Push text to bottom (matches parent behavior) */
-    width: 100%;               /* Fill Width */
-    height: 100%;              /* Fill Height */
-    text-decoration: none;     /* Remove default underline */
-    position: relative;        /* Ensure absolute children position correctly */
-    z-index: 2;                /* Ensure it sits above the background */
+.tags {
+    font-size: 14px;
+    margin-bottom: 24px;
+    border-top: 2px solid var(--main-color);
+    border-bottom: 2px solid var(--main-color);
+    padding: 12px 0;
+}
+
+/* --- BUTTONS --- */
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    padding: 16px;
+    border-radius: 12px;
+    border: 2px solid var(--main-color);
+    cursor: pointer;
+    margin-bottom: 16px;
+    transition: all 0.2s;
+}
+.btn-secondary {
+    background-color: var(--bg-color);
+    color: var(--main-color);
+}
+.btn-secondary:hover { background-color: #e0e0e0; }
+
+.btn-primary {
+    background-color: var(--main-color);
+    color: var(--bg-color);
+}
+.btn-primary:hover { opacity: 0.9; }
+
+.btn svg { width: 24px; height: 24px; }
+.btn-primary svg { stroke: var(--bg-color); fill: none; }
+.btn-secondary svg { stroke: var(--main-color); fill: none; }
+
+.availability {
+    text-align: center;
+    font-size: 12px;
+    color: #666;
+    margin-top: -8px;
+    margin-bottom: 32px;
+}
+
+/* --- CASE STUDIES --- */
+.section-title { margin-bottom: 24px; }
+
+.case-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    gap: 24px;
+    margin-bottom: 16px;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+}
+.case-img { width: 60px; height: auto; }
+.case-info h4 { margin-bottom: 8px; }
+.case-meta { font-size: 12px; color: #666; margin-top: 12px; }
+
+/* --- ACCORDIONS --- */
+.accordion {
+    border-bottom: 1px solid var(--main-color);
+}
+.accordion-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: 16px;
+    color: var(--main-color);
+    cursor: pointer;
+}
+.accordion-header svg { width: 20px; height: 20px; transition: transform 0.3s; }
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    font-size: 14px;
+}
+.accordion.active .accordion-content { max-height: 200px; padding-bottom: 16px; }
+.accordion.active .accordion-header svg { transform: rotate(180deg); }
+
+/* Accordion List Fix */
+.accordion-content ul {
+    padding-left: 24px; /* Gives the bullets room to breathe */
+    margin: 16px 0; /* Adds spacing above and below the list */
+}
+
+.accordion-content li {
+    font-size: 16px; 
+    margin-bottom: 8px; 
+    list-style-type: disc;
+    /* Optional: if they STILL don't show, add the line below */
+    /* list-style-position: inside; */
 }
 
 /* =========================================
-   HORIZONTAL SCROLL ENGINE
+   CHECKOUT ANIMATIONS
    ========================================= */
 
-/* DESKTOP HORIZONTAL TRANSFORMATION */
-@media (min-width: 768px) {
-
-    .margin-top-mobile{
-        margin-top: 0;
-    }
-
-    .margin-top-desktop{
-        margin-top: 24px;
-    }
-
-    .wc600{
-        width: 676px !important;
-    }
-
-    .panel {
-        padding: 20px 20px 0;
-        margin-top: -1px; /* Hides seams */
-    }
-
-    .panel-content {
-        display: flex;
-        flex-direction: column;
-        width: fit-content; 
-        min-height: 100vh;
-        align-items: flex-start;
-        margin: 0;
-        gap: 0;
-        justify-content: center;
-    }
-
-    /* Fixed Stage Title */
-    .section-header {
-        flex-shrink: 0;
-        position: relative;
-        width: 600px;
-        z-index: 5;
-    }
-
-    /* The part that actually slides */
-    .section-body {
-        display: flex;
-        flex-direction: row; /* Content moves left-to-right */
-        gap: 48px;
-        flex-shrink: 0;
-        position: relative;
-        z-index: 1;
-        padding-left: 16vw; 
-        padding-right: 10vw; 
-        gap: 10vw;
-    }
-
-    /* Standardized text columns */
-    .story-container {
-        display: block;
-        height: 340px;
-        column-width: 600px;
-        column-gap: 48px;
-        column-fill: auto;
-        flex-shrink: 0;
-        width: max-content;
-    }
-
-    .mega-title span.char {
-    display: inline-block; /* Essential for transforms/filters to work on text */
-    min-width: 0.2em;      /* Ensures spaces have width */
-    will-change: filter;
+/* The Jumping Dots */
+.jumping-dots .dot {
+    display: inline-block;
+    animation: bounce 1.4s infinite ease-in-out both;
 }
+.jumping-dots .dot:nth-child(1) { animation-delay: -0.32s; }
+.jumping-dots .dot:nth-child(2) { animation-delay: -0.16s; }
 
-}
-@media (min-width: 768px) {
-    .desktop-only { display: block; }
-    
-    h1 { font-size: 3rem; } /* 48px */
-
-    .title{
-        width: 18rem;
-    }
-    
-    .mega-title {
-        font-family: var(--font-heading);
-        font-size: 8rem;
-        flex-shrink: 0;
-        white-space: nowrap;
-        width: auto;
-
-    }
-
-    /*Glass-card*/
-    
-    .glass-card-standalone {
-        width: 232px !important;
-    }
-
-    .glass-overlay {
-        /* Ensure the overlay can grow smoothly */
-        transition: padding 0.4s ease;
-        /* Reduce bottom padding slightly when closed for a tighter look */
-        padding: 24px 24px 16px; 
-    }
-
-    .glass-title {
-        /* Remove or reduce bottom margin when the desc is hidden 
-           to keep the title centered in the glass if you prefer */
-        margin-bottom: 0px; 
-        transition: margin-bottom 0.4s ease;
-    }
-
-    .glass-desc {
-        /* 1. Hide it */
-        max-height: 0;
-        opacity: 0;
-        overflow: hidden;
-        
-        /* 2. Position it lower for the "slide up" effect */
-        transform: translateY(20px);
-        
-        /* 3. Smooth transition */
-        transition: 
-            max-height 0.4s ease, 
-            opacity 0.4s ease, 
-            transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
-            margin-top 0.4s ease;
-    }
-
-    /* --- THE HOVER TRIGGER --- */
-    .glass-card-standalone:hover .glass-desc {
-        /* 1. Reveal it */
-        max-height: 150px; /* High enough to fit your text */
-        opacity: 1;
-        
-        /* 2. Slide to final position */
-        transform: translateY(0);
-        
-        /* 3. Add space above it now that it's visible */
-        margin-top: 12px;
-    }
-
-    .glass-card-standalone:hover .glass-title {
-        /* Restore the gap between title and desc on hover */
-        margin-bottom: 0px; 
-    }
-    
-    .glass-card-standalone:hover .glass-overlay {
-        padding-bottom: 24px;
-    }
-
+@keyframes bounce {
+    0%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-6px); }
 }
 
 /* =========================================
-   PAGE TRANSITION OVERLAY
+   THE SUCCESS MODAL (POPPING IMAGE VERSION)
    ========================================= */
-.page-transition-curtain {
+
+.modal-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: #000000; /* Black screen */
-    opacity: 0;                /* Invisible by default */
-    z-index: 99999;            /* On top of EVERYTHING */
-    pointer-events: none;      /* Let clicks pass through when hidden */
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(248, 248, 248, 0.85); /* Your brand background, transparent */
+    backdrop-filter: blur(4px); /* Nice blur effect behind it */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    /* Initial State (Hidden) */
+    opacity: 0;
+    visibility: hidden; /* Hides it from screen readers when closed */
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.active {
+    /* Active State (Visible) */
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    position: relative; /* Necessary for absolute positioning the image */
+    background: var(--white);
+    border-radius: 20px; /* Slightly rounder corners */
+    padding: 80px 32px 32px 32px; /* Extra top padding to make room for the image */
+    text-align: center;
+    width: 90%; /* Responsive width */
+    min-height: 250px; /* Ensures enough space for content and image */
+    max-width: 420px; /* Maximum desktop width */
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    overflow: visible; /* CRITICAL: Allows image to sit outside the box */
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* This forces the contents to the bottom */
+    
+    /* Initial Animation State (Down and Invisible) */
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+    /* Elegant transition with a slight delay so overlay fades first */
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s;
+}
+
+.modal-overlay.active .modal-content {
+    /* Active Animation State (Up and Visible) */
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* The Popping Image */
+.modal-image {
+    position: absolute;
+    top: -150px; /* Pulls half the image out of the top */
+    left: 50%;
+    transform: translateX(-50%); /* Centers it horizontally */
+    width: 150px; /* Fixed width for consistent pop-out effect */
+    height: auto;
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1)); /* Adds depth to the cutout */
+}
+
+.modal-text{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Typography */
+.modal-text h3 {
+    font-family: 'Boldonse', sans-serif; /* Your brand font */
+    font-size: 24px;
+    margin-bottom: 8px;
+    line-height: 1.1;
+}
+
+.modal-text p {
+    font-family: 'Space Mono', monospace;
+    font-size: 16px;
+    color: #666; /* Slightly lighter for hierarchy */
+    margin: 0;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 480px) {
+    .modal-content {
+        padding-top: 70px; /* Slightly less padding on mobile */
+    }
+    .modal-image {
+        width: 130px; /* Slightly smaller image */
+        top: -126px;
+    }
+    .modal-text h3 { font-size: 20px; }
+    .modal-text p { font-size: 14px; }
+}
+
+/* =========================================
+    FOOTER
+    ========================================= */
+footer {
+    background-color: var(--main-color);
+    color: var(--bg-color);
+    padding: 32px 0;
+    margin-top: 64px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+}
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Boldonse', sans-serif;
+    text-transform: uppercase;
+}
+
+.mobile-centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.mobile-centered div a img{ width: 26px; filter: brightness(0) invert(1); }
+
+.footer-logo svg { fill: var(--bg-color); width: 24px; height: 24px; }
+
+.little{
+    font-size: 12px;
+    color: #ccc;
+}
+
+
+/* =========================================
+    DESKTOP / TABLET BREAKPOINT (Responsive)
+    ========================================= */
+@media (min-width: 992px) {
+    /* Typography Scale Up */
+    h1 { font-size: 36px; line-height: 1.6; }
+    h2 { font-size: 24px; }
+    h3 { font-size: 32px; }
+    h4 { font-size: 24px; }
+    p { font-size: 16px; }
+    .btn-label { font-size: 20px; }
+    .accordion-header { font-size: 20px; }
+    
+    /* CSS Grid Template Areas for Desktop Layout */
+    .pdp-grid {
+        display: grid;
+        grid-template-columns: 55% 40%;
+        grid-template-areas: 
+            "visual details"
+            "cases details"
+            "faqs details";
+        justify-content: space-between;
+        align-items: start;
+        gap: 0; /* Removing flex gap, handling spacing inside blocks */
+    }
+
+    /* Assigning grid areas */
+    .grid-visual { grid-area: visual; margin-bottom: 48px; }
+    .grid-cases { grid-area: cases; }
+    .grid-faqs { grid-area: faqs; margin-top: 48px; }
+    
+    .grid-details { 
+        grid-area: details; 
+        position: sticky; 
+        top: 24px; 
+    }
+
+    .carousel { padding: 48px; }
+    
+    .product-image {
+        width: 500px !important;
+        max-width: 500px; 
+    }
+    
+    .case-card { padding: 32px; gap: 32px; }
+    .case-img { width: 80px; }
+    
+    .footer-content {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+    }
+
+    .mobile-centered {
+        display: block;
+    }
+
+    .mobile-centered div a img{ width: 50px; filter: brightness(0) invert(1); }
+
+
 }
