@@ -373,7 +373,7 @@ model-viewer {
     transition: max-height 0.3s ease-out;
     font-size: 14px;
 }
-.accordion.active .accordion-content { max-height: 200px; padding-bottom: 16px; }
+.accordion.active .accordion-content { max-height: 800px; padding-bottom: 16px; }
 .accordion.active .accordion-header svg { transform: rotate(180deg); }
 
 /* Accordion List Fix */
