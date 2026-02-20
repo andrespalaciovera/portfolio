@@ -56,56 +56,16 @@ const modelViewer = document.getElementById('legoModel');
     });
 
     /* =========================================
-   FEATURE 2: CHECKOUT ANIMATION ON CLICK
-   ========================================= */
-const addToTeamBtn = document.querySelector('.btn-primary');
-const orderModal = document.getElementById('orderModal');
-
-addToTeamBtn.addEventListener('click', (e) => {
-    e.preventDefault(); // Stop the email from opening instantly
-
-    // 1. Store the original button HTML so we can reset it later
-    const originalContent = addToTeamBtn.innerHTML;
-
-    // 2. Change the button text and inject the jumping dots
-    addToTeamBtn.innerHTML = `
-        <span class="btn-label jumping-dots">
-            Completing order<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
-        </span>
-    `;
-
-    // 3. Wait exactly 1000ms (1 second), then show the modal
-    setTimeout(() => {
-        orderModal.classList.add('active');
-
-        // 4. Give the user 2.5 seconds to watch the GIF and read the text
-        setTimeout(() => {
-            
-            // Trigger the mail client
-            window.location.href = "mailto:hello@andresaudits.com";
-            
-            // Reset the UI shortly after the email app opens
-            setTimeout(() => {
-                orderModal.classList.remove('active');
-                addToTeamBtn.innerHTML = originalContent;
-            }, 1000);
-
-        }, 2500); // Time the modal stays on screen
-
-    }, 1000); // Delay before modal appears
-});
-
-/* =========================================
    MOBILE CAMERA CONTROLS
    ========================================= */
 const mediaQuery = window.matchMedia('(max-width: 767px)');
 
 function handleDeviceChange(e) {
     if (e.matches) {
-        // Mobile screen: Turn ON touch controls
+        // Mobile screen: Turn ON native touch controls
         modelViewer.setAttribute('camera-controls', 'true');
     } else {
-        // Desktop screen: Turn OFF touch controls (let the mouse tracking take over)
+        // Desktop screen: Turn OFF touch controls (let mouse tracking take over)
         modelViewer.removeAttribute('camera-controls');
         // Reset the camera orbit to default so it's ready for mouse tracking
         modelViewer.cameraOrbit = "0deg 90deg auto";
@@ -115,5 +75,185 @@ function handleDeviceChange(e) {
 // Check the screen size when the page loads
 handleDeviceChange(mediaQuery);
 
-// Keep checking if they resize the window
+// Keep checking if the user resizes the window
 mediaQuery.addEventListener('change', handleDeviceChange);
+
+/* =========================================
+   FEATURE 2: CHECKOUT ANIMATION ON CLICK (+ PROGRESS BAR ONLY)
+   ========================================= */
+const addToTeamBtn = document.querySelector('.btn-primary');
+const orderModal = document.getElementById('orderModal');
+const modalProgressFill = document.getElementById('modal-progress-fill');
+const btnOpenNow = document.getElementById('btn-open-now');
+const btnCancel = document.getElementById('btn-cancel');
+
+const totalCountdownTime = 3; 
+let countdownValue = totalCountdownTime;
+let countdownInterval;
+let originalContent; 
+
+// Helper: Reset UI
+function closeModalAndReset() {
+    clearInterval(countdownInterval);
+    orderModal.classList.remove('active');
+    addToTeamBtn.innerHTML = originalContent;
+    
+    // Wait 500ms for the modal to become completely invisible BEFORE emptying the bar
+    setTimeout(() => {
+        if (modalProgressFill) {
+             modalProgressFill.style.transition = 'none'; 
+             modalProgressFill.style.width = '0%';
+        }
+    }, 500);
+}
+
+// Helper: Trigger email
+function openEmail() {
+    window.location.href = "mailto:hello@andresaudits.com";
+    setTimeout(closeModalAndReset, 1000); 
+}
+
+// 1. MAIN BUTTON CLICK
+addToTeamBtn.addEventListener('click', (e) => {
+    e.preventDefault(); 
+    originalContent = addToTeamBtn.innerHTML;
+
+    addToTeamBtn.innerHTML = `
+        <span class="btn-label jumping-dots">
+            Completing order<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
+        </span>
+    `;
+
+    setTimeout(() => {
+        orderModal.classList.add('active');
+        
+        // Reset countdown math
+        countdownValue = totalCountdownTime;
+        
+        // Ensure the bar starts completely empty
+        if (modalProgressFill) {
+             modalProgressFill.style.transition = 'none';
+             modalProgressFill.style.width = '0%'; // Start empty
+             modalProgressFill.offsetHeight; // Force the browser to register the 0%
+             modalProgressFill.style.transition = 'width 1s linear'; // Turn smooth animation back on
+        }
+
+        // Start the interval loop
+        countdownInterval = setInterval(() => {
+            countdownValue--;
+            
+            // Calculate the percentage FILLED (elapsed time)
+            const percentFilled = ((totalCountdownTime - countdownValue) / totalCountdownTime) * 100;
+            if (modalProgressFill) modalProgressFill.style.width = `${percentFilled}%`;
+
+            if (countdownValue <= 0) {
+                // Finished! Stop the clock.
+                clearInterval(countdownInterval);
+                
+                // Add a tiny 300ms delay so the user can visually see the bar hit 100%
+                setTimeout(openEmail, 900);
+            }
+        }, 1000);
+
+    }, 1000);
+});
+
+// 2. OPEN NOW BUTTON CLICK
+btnOpenNow.addEventListener('click', () => {
+    clearInterval(countdownInterval);
+    // Snap the bar to 100% instantly to show completion
+    if (modalProgressFill) {
+        modalProgressFill.style.transition = 'none';
+        modalProgressFill.style.width = '100%';
+    }
+    openEmail();
+});
+
+// 3. CANCEL BUTTON CLICK
+btnCancel.addEventListener('click', () => {
+    closeModalAndReset();
+});
+
+// 4. CLICK OUTSIDE / ESCAPE
+orderModal.addEventListener('click', (e) => {
+    if (e.target === orderModal) closeModalAndReset();
+});
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && orderModal.classList.contains('active')) closeModalAndReset();
+});
+
+/* =========================================
+   3D MODEL PROGRESS TRACKER (GSAP SMOOTH)
+   ========================================= */
+const progressText = document.getElementById('dot-progress');
+const customLoader = document.getElementById('custom-3d-loader');
+
+// We create a dummy object for GSAP to animate
+let loaderProxy = { percentage: 0 };
+
+if (modelViewer && progressText) {
+    
+    // 1. TRACK THE DOWNLOAD
+    modelViewer.addEventListener('progress', (event) => {
+        const targetPercentage = Math.round(event.detail.totalProgress * 100);
+        
+        // Use GSAP to smoothly spin the numbers up to the target
+        gsap.to(loaderProxy, {
+            percentage: targetPercentage,
+            duration: 0.8, // Takes almost a second to catch up, making it look smooth
+            ease: "power2.out",
+            onUpdate: () => {
+                // Format the animated number to always have 3 digits (e.g., 042%)
+                const currentVal = Math.round(loaderProxy.percentage);
+                progressText.innerText = currentVal.toString().padStart(3, '0') + '%';
+            }
+        });
+    });
+
+    // 2. WAIT FOR THE GPU TO FINISH DRAWING
+    // The 'load' event only fires when the 3D model is actually visible on screen
+    modelViewer.addEventListener('load', () => {
+        
+        // Force the counter to 100% just in case it got stuck
+        gsap.to(loaderProxy, {
+            percentage: 100,
+            duration: 0.4,
+            onUpdate: () => {
+                progressText.innerText = Math.round(loaderProxy.percentage).toString().padStart(3, '0') + '%';
+            },
+            onComplete: () => {
+                // Gracefully fade out the loader now that the 3D model is visible
+                customLoader.style.transition = 'opacity 0.6s ease-out';
+                customLoader.style.opacity = '0';
+                
+                setTimeout(() => {
+                    customLoader.style.display = 'none';
+                }, 600);
+            }
+        });
+    });
+}
+
+/* =========================================
+   IMAGE ZOOM TRACKING
+   ========================================= */
+const zoomableImages = document.querySelectorAll('.zoomable');
+
+zoomableImages.forEach(img => {
+    img.addEventListener('mousemove', function(e) {
+        // 1. Get the exact size and position of the image on the screen
+        const rect = img.getBoundingClientRect();
+        
+        // 2. Calculate where the mouse is inside the image (0.0 to 1.0)
+        const x = (e.clientX - rect.left) / rect.width;
+        const y = (e.clientY - rect.top) / rect.height;
+        
+        // 3. Convert those to percentages and move the transform-origin
+        img.style.transformOrigin = `${x * 100}% ${y * 100}%`;
+    });
+
+    // 4. When the mouse leaves, smoothly snap the origin back to the center
+    img.addEventListener('mouseleave', function() {
+        img.style.transformOrigin = 'center center';
+    });
+});

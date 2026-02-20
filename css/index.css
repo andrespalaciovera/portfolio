@@ -90,6 +90,11 @@ model-viewer::part(default-progress-bar) {
 
 .logo-icon img { width: 24px; height: 24px; fill: var(--main-color); }
 
+.nav-links .btn-label{
+    font-family: 'Bitcount Grid Single', sans-serif;
+    font-weight: 400;
+}
+
 /* =========================================
     PRODUCT LAYOUT (Mobile Single Column)
     ========================================= */
@@ -115,7 +120,8 @@ model-viewer::part(default-progress-bar) {
 
 .carousel-btn {
     background: none;
-    border: 1px solid var(--main-color);
+    /* border: 1px solid var(--main-color); */
+    border: none;
     border-radius: 8px;
     width: 40px;
     height: 40px;
@@ -172,6 +178,103 @@ model-viewer {
     width: 100%;
     height: 350px;
     --poster-color: transparent; /* Blends with your white background */
+}
+
+/* DOT-MATRIX 3D LOADER */
+
+.dot-loader-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    pointer-events: none; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dot-matrix-text {
+    /* Use your new Google Font */
+    font-family: 'Bitcount Grid Single', sans-serif;
+    font-size: 150px; /* Made    it slightly bigger since pixel fonts can run small */
+    font-weight: 300; /* Adjust this from 100 to 900 to make the dots thicker/thinner */
+    letter-spacing: 4px;
+    color: var(--font-color); 
+    
+    /* Keep the subtle pulse */
+    animation: ledPulse 0.8s infinite alternate ease-in-out;
+}
+
+/* Update the container to stack items vertically */
+.dot-loader-container {
+    /* ... existing styles ... */
+    flex-direction: column; /* Stack text and bar */
+    gap: 16px; /* Space between the numbers and the bar */
+}
+
+/* The outer track of the bar */
+.digital-bar-track {
+    width: 220px; /* Match roughly the width of the 000% text */
+    height: 24px;
+    background: rgba(18, 18, 18, 0.05); /* Very faint background */
+    border: 2px solid var(--font-color, #121212); /* Hard digital border */
+    padding: 4px; /* Inner spacing between border and blocks */
+    border-radius: 4px; /* Slight rounding for a modern-retro feel */
+}
+
+/* The inner filling blocks */
+.digital-bar-fill {
+    height: 100%;
+    width: 0%; /* Starts empty, animated by JS */
+    
+    /* THE SEGMENTED TRICK: */
+    /* Creates repeating blocks of color followed by transparent gaps */
+    background-image: linear-gradient(
+        90deg, 
+        var(--font-color, #121212) 0%, 
+        var(--font-color, #121212) 70%, 
+        transparent 70%, 
+        transparent 100%
+    );
+    background-size: 12px 100%; /* The width of one "block" + gap */
+    
+    /* Ensure smooth transitioning between updates */
+    transition: width 0.1s linear; 
+}
+
+/* @keyframes ledPulse {
+    from { opacity: 0.6; }
+    to { opacity: 1; }
+} */
+
+@media (max-width: 767px) {
+    .dot-matrix-text {
+        font-size: 56px;
+    }
+}
+
+/* Make it smaller on mobile screens */
+@media (max-width: 767px) {
+    .dot-matrix-text {
+        font-size: 48px;
+        background-size: 6px 6px;
+    }
+}
+
+.zoomable {
+    /* Smooth transition for when the zoom starts and ends */
+    transition: transform 0.3s ease-out;
+    transform-origin: center center;
+    
+    /* THE MAGIC CIRCLE CURSOR: 
+       This draws a clean, dark ring directly from CSS math */
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><circle cx="16" cy="16" r="14" stroke="%23333333" stroke-width="2" fill="none"/></svg>') 16 16, crosshair;
+}
+
+/* When the mouse hovers, scale the image up by 2x */
+.zoomable:hover {
+    transform: scale(2); /* Change to 1.5 or 2.5 to adjust the zoom amount */
 }
 
 /* --- PRODUCT INFO --- */
@@ -336,8 +439,8 @@ model-viewer {
     padding: 80px 32px 32px 32px; /* Extra top padding to make room for the image */
     text-align: center;
     width: 90%; /* Responsive width */
-    min-height: 250px; /* Ensures enough space for content and image */
-    max-width: 420px; /* Maximum desktop width */
+    min-height: 400px; /* Ensures enough space for content and image */
+    max-width: 500px; /* Maximum desktop width */
     box-shadow: 0 20px 40px rgba(0,0,0,0.1);
     overflow: visible; /* CRITICAL: Allows image to sit outside the box */
 
@@ -380,7 +483,7 @@ model-viewer {
     font-family: 'Boldonse', sans-serif; /* Your brand font */
     font-size: 24px;
     margin-bottom: 8px;
-    line-height: 1.1;
+    line-height: 1.6;
 }
 
 .modal-text p {
@@ -401,6 +504,59 @@ model-viewer {
     }
     .modal-text h3 { font-size: 20px; }
     .modal-text p { font-size: 14px; }
+}
+
+.modal-actions {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+    margin-top: 24px;
+}
+
+/* Ensure the buttons fit nicely side-by-side in the modal */
+.modal-actions .btn {
+    margin-bottom: 0;
+    flex: 1; /* Makes both buttons exactly the same width */
+    padding: 12px; /* Slightly tighter padding for modal */
+}
+
+/* Mobile adjustments for the buttons */
+@media (max-width: 480px) {
+    .modal-actions {
+        flex-direction: column; /* Stack them on very small screens */
+        gap: 12px;
+    }
+}
+
+/* Modal progress bar */
+
+.modal-progress-track {
+    width: 100%;
+    max-width: 240px; /* Keep it neat and centered */
+    height: 16px;
+    background: rgba(51, 51, 51, 0.05); /* Faint background track */
+    padding: 2px; /* Inner spacing */
+    border-radius: 4px;
+    margin-top: 16px; /* Space from the text above */
+    margin-bottom: 24px; /* Space from the buttons below */
+}
+
+.modal-progress-fill {
+    height: 100%;
+    width: 100%; /* Starts full for a countdown */
+    
+    /* THE SEGMENTED TRICK */
+    background-image: linear-gradient(
+        90deg, 
+        var(--main-color) 0%, 
+        var(--main-color) 70%, 
+        transparent 70%, 
+        transparent 100%
+    );
+    background-size: 10px 100%; /* Size of segments */
+    
+    /* Smooth transition to match the 1-second ticks */
+    transition: width 1s linear; 
 }
 
 /* =========================================
