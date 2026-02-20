@@ -109,7 +109,7 @@ function closeModalAndReset() {
 
 // Helper: Trigger email
 function openEmail() {
-    window.location.href = "mailto:hello@andresaudits.com";
+    window.location.href = "mailto:andres@andresaudits.com";
     setTimeout(closeModalAndReset, 1000); 
 }
 
@@ -156,7 +156,7 @@ addToTeamBtn.addEventListener('click', (e) => {
         }, 1000);
 
     }, 1000);
-});
+}); 
 
 // 2. OPEN NOW BUTTON CLICK
 btnOpenNow.addEventListener('click', () => {
