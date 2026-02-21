@@ -88,6 +88,11 @@ ul li{
 
 .zoomable{
     cursor: zoom-in;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.zoomable.no-shadow{
+    box-shadow: none;
 }
 
 /* =========================================
@@ -559,8 +564,21 @@ ul li{
 
    /* Prototype */
 
+   .wireframe-container {
+       /* THIS IS THE MAGIC FIX 👇 */
+       flex-shrink: 0; 
+   }
+
    .wireframe-container img{
     width: 218px !important;
+   }
+
+   .wireframe-container.desktop img{
+    width: 400px !important;
+   }
+
+   .desktop-desktop img{
+    height: 270px !important;
    }
 
    .wireframe-container .digital{
@@ -1091,10 +1109,19 @@ ul li{
     justify-content: center;
    }
 
+   .wireframe-container.desktop img{
+    width: 80%;
+   }
+
    .wireframe-container img{
     width: 50%;
     border-radius: 8px;
     filter: grayscale(100%);
+   }
+
+   .wireframe-container .colorful{
+    filter: grayscale(0%);
+    border: none;
    }
 
    .wireframe-container .hd{
