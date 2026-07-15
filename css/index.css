@@ -4,7 +4,8 @@
     ========================================= */
 :root {
     --bg-color: #f8f8f8;
-    --main-color: #333333;
+    --text-color: #333333;
+    --main-color: var(--text-color); /* Alias for backward compatibility */
     --white: #ffffff;
     
     /* Dotted Grid Variables */
@@ -246,17 +247,6 @@ model-viewer {
     
     /* Ensure smooth transitioning between updates */
     transition: width 0.1s linear; 
-}
-
-/* @keyframes ledPulse {
-    from { opacity: 0.6; }
-    to { opacity: 1; }
-} */
-
-@media (max-width: 767px) {
-    .dot-matrix-text {
-        font-size: 56px;
-    }
 }
 
 /* Make it smaller on mobile screens */

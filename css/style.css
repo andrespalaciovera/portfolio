@@ -1,6 +1,13 @@
-:root{
-    --bg-color: #f8f8f8; /* Light gray background from your images */
-    --font-color: #333333; /* Dark text color from your images */
+:root {
+    --bg-color: #f8f8f8;
+    --text-color: #333333;
+    --font-color: var(--text-color); /* Alias for backward compatibility */
+
+    /* Dotted Grid Variables */
+    --dot-color-dark: rgba(0, 0, 0, 0.35);
+    --dot-color-light: rgba(119, 119, 119, 0.35);
+    --dot-size: 1px;
+    --dot-spacing: 20px;
 }
 
 * {
@@ -10,19 +17,15 @@
 }
 
 body, html {
-    background-color: #121212; /* Light gray background from your images */
-    color: #333333;
+    background-color: #121212;
+    color: var(--text-color);
     font-family: 'Space Mono', monospace; /* Default body font */
     overflow-x: hidden; /* Prevents accidental horizontal scrollbar */
 }
 
 body {
-    background-image: radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.35) 1px, transparent 0);
-    background-size: 20px 20px;
-}
-
-.global-wrapper{
-    background-color: #FAFAFA;
+    background-image: radial-gradient(circle at var(--dot-size) var(--dot-size), var(--dot-color-dark) var(--dot-size), transparent 0);
+    background-size: var(--dot-spacing) var(--dot-spacing);
 }
 
 h1{
@@ -105,8 +108,8 @@ ul li{
     
     /* THE PATTERN */
     background-color: #ffffff;
-    background-image: radial-gradient(circle at 1px 1px, rgba(119, 119, 119, 0.35) 1px, transparent 0);
-    background-size: 20px 20px;
+    background-image: radial-gradient(circle at var(--dot-size) var(--dot-size), var(--dot-color-light) var(--dot-size), transparent 0);
+    background-size: var(--dot-spacing) var(--dot-spacing);
     
     /* Ensure the pattern doesn't scroll at a different speed than the content */
     background-attachment: local;

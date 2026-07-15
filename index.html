@@ -250,21 +250,6 @@
         </div>
     </div>
 
-    <script>
-        const accordions = document.querySelectorAll('.accordion');
-        
-        accordions.forEach(acc => {
-            const header = acc.querySelector('.accordion-header');
-            header.addEventListener('click', () => {
-                accordions.forEach(otherAcc => {
-                    if (otherAcc !== acc) otherAcc.classList.remove('active');
-                });
-                acc.classList.toggle('active');
-            });
-        });
-    </script>
-
-
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="./js/index.js"></script>
 </body>

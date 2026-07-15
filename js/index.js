@@ -1,3 +1,4 @@
+'use strict';
 
 const slides = document.querySelectorAll('.carousel-slide');
 const prevBtn = document.getElementById('prevBtn');
@@ -34,33 +35,55 @@ prevBtn.addEventListener('click', () => {
 
 const modelViewer = document.getElementById('legoModel');
 
-    /* =========================================
-       FEATURE 1: MOUSE TRACKING
-       ========================================= */
-    window.addEventListener('mousemove', (e) => {
-        // Only track if the 3D slide is currently active in the carousel
-        const parentSlide = modelViewer.closest('.carousel-slide');
-        if (!parentSlide || !parentSlide.classList.contains('active')) return;
+/* =========================================
+   FEATURE 1: MOUSE TRACKING (OPTIMIZED WITH RAF)
+   ========================================= */
+let mouseX = 0;
+let mouseY = 0;
+let rafActive = false;
 
-        // Calculate mouse position as a value between -1 and 1
-        const x = (e.clientX / window.innerWidth - 0.5) * 2;
-        const y = (e.clientY / window.innerHeight - 0.5) * 2;
+function updateCameraOrbit() {
+    if (!modelViewer) return;
+    
+    // Only track if the 3D slide is currently active in the carousel
+    const parentSlide = modelViewer.closest('.carousel-slide');
+    if (!parentSlide || !parentSlide.classList.contains('active')) {
+        rafActive = false;
+        return;
+    }
 
-        // Map mouse position to rotation angles (in degrees)
-        // Adjust the '40' and '20' to make the head turn more or less
-        const orbitX = -x * 40; 
-        const orbitY = 90 - (y * 20); // 90 is the default front-facing angle
+    // Calculate mouse position as a value between -1 and 1
+    const x = (mouseX / window.innerWidth - 0.5) * 2;
+    const y = (mouseY / window.innerHeight - 0.5) * 2;
 
-        // Apply the new orbit to the model viewer
-        modelViewer.cameraOrbit = `${orbitX}deg ${orbitY}deg auto`;
-    });
+    // Map mouse position to rotation angles (in degrees)
+    const orbitX = -x * 40; 
+    const orbitY = 90 - (y * 20); // 90 is the default front-facing angle
 
-    /* =========================================
+    // Apply the new orbit to the model viewer
+    modelViewer.cameraOrbit = `${orbitX}deg ${orbitY}deg auto`;
+    rafActive = false;
+}
+
+window.addEventListener('mousemove', (e) => {
+    if (!modelViewer) return;
+    
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    if (!rafActive) {
+        rafActive = true;
+        requestAnimationFrame(updateCameraOrbit);
+    }
+});
+
+/* =========================================
    MOBILE CAMERA CONTROLS
    ========================================= */
 const mediaQuery = window.matchMedia('(max-width: 767px)');
 
 function handleDeviceChange(e) {
+    if (!modelViewer) return;
     if (e.matches) {
         // Mobile screen: Turn ON native touch controls
         modelViewer.setAttribute('camera-controls', 'true');
@@ -68,12 +91,14 @@ function handleDeviceChange(e) {
         // Desktop screen: Turn OFF touch controls (let mouse tracking take over)
         modelViewer.removeAttribute('camera-controls');
         // Reset the camera orbit to default so it's ready for mouse tracking
-        modelViewer.cameraOrbit = "0deg 90deg auto";
+        modelViewer.cameraOrbit = '0deg 90deg auto';
     }
 }
 
 // Check the screen size when the page loads
-handleDeviceChange(mediaQuery);
+if (modelViewer) {
+    handleDeviceChange(mediaQuery);
+}
 
 // Keep checking if the user resizes the window
 mediaQuery.addEventListener('change', handleDeviceChange);
@@ -256,4 +281,23 @@ zoomableImages.forEach(img => {
     img.addEventListener('mouseleave', function() {
         img.style.transformOrigin = 'center center';
     });
+});
+
+/* =========================================
+   FAQ ACCORDION MENU
+   ========================================= */
+const accordions = document.querySelectorAll('.accordion');
+
+accordions.forEach(acc => {
+    const header = acc.querySelector('.accordion-header');
+    if (header) {
+        header.addEventListener('click', () => {
+            accordions.forEach(otherAcc => {
+                if (otherAcc !== acc) {
+                    otherAcc.classList.remove('active');
+                }
+            });
+            acc.classList.toggle('active');
+        });
+    }
 });

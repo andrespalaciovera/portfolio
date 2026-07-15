@@ -1,8 +1,10 @@
+'use strict';
+
 // 1. Register GSAP Plugins
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 // 2. Define the MatchMedia (The "Hybrid" Logic)
-let mm = gsap.matchMedia();
+const mm = gsap.matchMedia();
 
 /* =========================================================
    DESKTOP LOGIC (Min-Width: 768px)
@@ -10,7 +12,8 @@ let mm = gsap.matchMedia();
 mm.add("(min-width: 768px)", () => {
     
     const panels = gsap.utils.toArray(".panel");
-    const navLinks = document.querySelectorAll(".nav-steps li a, a.inline-link[href^='#']");
+    const stepLinks = document.querySelectorAll(".nav-steps li a");
+    const allLinks = document.querySelectorAll(".nav-steps li a, a.inline-link[href^='#']");
 
     panels.forEach((panel, i) => {
         
@@ -53,7 +56,7 @@ mm.add("(min-width: 768px)", () => {
             });
         }
 
-        // --- ACTIVE CLASS SPY (Unchanged) ---
+        // --- ACTIVE CLASS SPY ---
         ScrollTrigger.create({
             trigger: panel,
             start: "top center",
@@ -61,23 +64,25 @@ mm.add("(min-width: 768px)", () => {
             onToggle: (self) => {
                 if (self.isActive) {
                     document.querySelectorAll(".nav-steps li").forEach(li => li.classList.remove("active"));
-                    if(navLinks[i]) navLinks[i].parentElement.classList.add("active");
+                    if (stepLinks[i]) stepLinks[i].parentElement.classList.add("active");
                 }
             }
         });
     });
 
-    // --- SMOOTH SCROLL (Unchanged) ---
-    navLinks.forEach((link) => {
+    // --- SMOOTH SCROLL ---
+    allLinks.forEach((link) => {
         link.addEventListener("click", (e) => {
             e.preventDefault();
             const targetId = link.getAttribute("href");
             const targetSection = document.querySelector(targetId);
-            gsap.to(window, {
-                duration: 1.5,
-                scrollTo: { y: targetSection, autoKill: false },
-                ease: "power2.inOut"
-            });
+            if (targetSection) {
+                gsap.to(window, {
+                    duration: 1.5,
+                    scrollTo: { y: targetSection, autoKill: false },
+                    ease: "power2.inOut"
+                });
+            }
         });
     });
 });
@@ -119,20 +124,23 @@ mm.add("(max-width: 767px)", () => {
     updateNav(0);
 
     // --- C. FUNCTION: Transition between stages (Updated) ---
-    function goToStage(index) {
-        if (index === currentIndex) return;
+    function goToStage(index, scrollTargetElement = null) {
+        if (index === currentIndex) {
+            if (scrollTargetElement) {
+                scrollTargetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            return;
+        }
 
-        let outgoing = panels[currentIndex];
-        let incoming = panels[index];
+        const outgoing = panels[currentIndex];
+        const incoming = panels[index];
 
         // 1. Determine Direction
-        // If index is higher (e.g. 1 -> 2), direction is 1 (Forward/Right)
-        // If index is lower (e.g. 2 -> 1), direction is -1 (Backward/Left)
         const direction = index > currentIndex ? 1 : -1;
 
         // 2. Set Start/End positions based on direction
-        const xEnter = direction * 100; // 100% or -100%
-        const xExit = direction * -100; // -100% or 100%
+        const xEnter = direction * 100;
+        const xExit = direction * -100;
 
         // 3. Animate Out (The current one leaves)
         gsap.to(outgoing, { 
@@ -142,7 +150,6 @@ mm.add("(max-width: 767px)", () => {
         });
 
         // 4. Animate In (The new one enters)
-        // First, place it instantly at the starting position
         gsap.set(incoming, { visibility: "visible", x: xEnter + "%" });
         
         // Then slide it to the center
@@ -152,8 +159,12 @@ mm.add("(max-width: 767px)", () => {
             ease: "power2.inOut",
             onComplete: () => {
                 gsap.set(outgoing, { visibility: "hidden" });
-                // Reset scroll position of the new panel to the top
-                incoming.scrollTop = 0; 
+                // Reset scroll position or scroll to target element
+                if (scrollTargetElement) {
+                    scrollTargetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                    incoming.scrollTop = 0; 
+                }
             }
         });
 
@@ -178,7 +189,7 @@ mm.add("(max-width: 767px)", () => {
         });
     });
 
-    // 2. NEW: Inline Paragraph Links for Mobile
+    // 2. Inline Paragraph Links for Mobile (Fixed lookup parent container)
     document.querySelectorAll(".inline-link").forEach((link) => {
         link.addEventListener("click", (e) => {
             const href = link.getAttribute("href");
@@ -187,13 +198,15 @@ mm.add("(max-width: 767px)", () => {
             if (href && href.startsWith("#")) {
                 e.preventDefault();
                 
-                // Find which panel index matches this ID
-                // We search through the 'panels' array to find the one with the matching ID
                 const targetId = href.substring(1); // remove the #
-                const targetIndex = Array.from(panels).findIndex(panel => panel.id === targetId);
+                const targetElement = document.getElementById(targetId);
+                const targetPanel = targetElement ? targetElement.closest('.panel') : null;
 
-                if (targetIndex !== -1) {
-                    goToStage(targetIndex);
+                if (targetPanel) {
+                    const targetIndex = Array.from(panels).indexOf(targetPanel);
+                    if (targetIndex !== -1) {
+                        goToStage(targetIndex, targetElement);
+                    }
                 }
             }
         });
@@ -206,7 +219,6 @@ mm.add("(max-width: 767px)", () => {
     }
 
     // --- F. NAVBAR AUTO-HIDE (Intersection Observer) ---
-    // Defines when the navbar should hide behind the button
     const navbar = document.querySelector(".navbar");
         
     const observer = new IntersectionObserver((entries) => {
