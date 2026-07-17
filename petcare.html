@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetCare.co — Case Study</title>
+    <link rel="icon" type="image/svg+xml" href="./assets/index/img-logo.svg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Boldonse:wght@400;700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .center-mobile {
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .margin-top-mobile {
+            margin-bottom: 24px;
+        }
+        /* Table Outcomes Styling */
+        table.outcomes-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0px;
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            color: #333333;
+        }
+        table.outcomes-table th, table.outcomes-table td {
+            border: 2px solid #333333;
+            padding: 12px 16px;
+            text-align: left;
+        }
+        table.outcomes-table th {
+            background-color: #333333;
+            color: #f8f8f8;
+        }
+        table.outcomes-table tr:nth-child(even) {
+            background-color: rgba(51, 51, 51, 0.05);
+        }
+
+        /* ── Page-scoped story-container widths (desktop only) ─────────────── */
+        /* Adjust each value here without affecting clinbase.html               */
+        @media (min-width: 768px) {
+            .pc-wc1   { width: 1369px; }   /* Empathize — research approach     */
+            .pc-wc2   { width: 1380px; }    /* Ideate — HMW block                */
+            .pc-wc3   { width: 1512px !important; } /* Ideate — audit block     */
+            .pc-wc5   { width: 1942px; }   /* Prototype — walkthrough block     */
+            .pc-wc6   { width: 3000px; }   /* 
+            Test — methodology + insights     */
+            .pc-wc600 { width: 676px; }    /* Prototype detail / Outcomes       */
+            .center-mobile {
+                margin-left: 0px;
+                width: 200px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-wrapper">
+            <a href="./index.html" class="nav-home-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#333333" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+            </a>
+
+            <div class="nav-steps-container">
+                <ul class="nav-steps">
+                    <li class="active"><a href="#intro">Intro</a></li>
+                    <li><a href="#empathize">Empathize</a></li>
+                    <li><a href="#define">Define</a></li>
+                    <li><a href="#ideate">Ideate</a></li>
+                    <li><a href="#prototype">Prototype</a></li>
+                    <li><a href="#test">Test</a></li>
+                    <li><a href="#outcomes">Outcomes</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main id="main-wrapper">
+
+        <!-- 1. INTRO PANEL -->
+        <section id="intro" class="panel">
+            <div class="panel-content">
+
+                <div class="section-header">
+                    <h1>Intro</h1>
+                    <h2 class="brand-name">PetCare.co</h2>
+                    <div class="animated-tape">
+                        <span>Next stage: Empathize • Next stage: Empathize • Next stage: Empathize • Next stage: Empathize • Next stage: Empathize </span>
+                        <span>Next stage: Empathize • Next stage: Empathize • Next stage: Empathize • Next stage: Empathize • Next stage: Empathize </span>
+                    </div>
+                </div>
+                
+                <div class="section-body">
+
+                    <div class="role-card">
+                        <div class="card-item">
+                            <span class="icon"><img src="./assets/id.svg" alt="id"></span>
+                            <span class="label"><strong>Role:</strong> UX Designer, UX Researcher, Information Architect</span>
+                        </div>
+                        <div class="card-item no-flex">
+                            <span class="label"><span class="icon"><img src="./assets/clock.svg" alt="clock"></span> <strong>Duration:</strong></span>
+                            <p>March 12 – July 14, 2026</p>
+                        </div>
+                        <div class="card-item no-flex">
+                            <span class="label"><span class="icon"><img src="./assets/task.svg" alt="tasks"></span> <strong>Type:</strong></span>
+                            <p>Independent conceptual project</p>
+                        </div>
+                    </div>
+
+                    <div class="story-container">
+                        <h2>PetCare.co — Case Study</h2>
+                        <p><strong>Restoring Confidence to the Pet Shopping Decision</strong></p>
+
+                        <h2 class="margin-top-mobile">The Product</h2>
+                        <p>PetCare.co is a mobile-first ecommerce platform for pet products, built on a simple premise: pet owners don't want more products, they want the <em>right</em> product. Instead of competing on discounts, reviews, and search volume like the rest of the category, PetCare.co positions itself as a shopping companion — one that understands a specific pet's profile and recommends what actually fits, backed by veterinary reasoning rather than marketing copy.</p>
+                        
+                        <h2 class="margin-top-mobile">The Problem</h2>
+                        <p>Buying for a pet carries a strange asymmetry: the emotional stakes are high (owners describe their pets as family), but the tools available to make that decision are the same generic ecommerce patterns used to sell anything else — star ratings, banners, and infinite scroll. Across the category, this shows up as real, documented frustration. Pet owners report formula changes discovered only after their pet refuses the food, autoship charges that shift without clear notice, and price transparency that appears late — problems visible across a large volume of customer reviews describing manufacturers changing formulas without warning and pets rejecting food as a result, as well as autoship prices increasing with no clear notice in the order confirmation. These aren't edge cases; they recur consistently enough across review platforms to represent a structural gap in how the category is designed, not isolated service failures.</p>
+                        
+                        <h2 class="margin-top-mobile">The Goal</h2>
+                        <p>The objective was to redesign <em>how pet owners make decisions</em> — not to out-catalog Chewy or out-discount Amazon. Two high-level objectives guided every downstream decision:</p>
+                        <ol>
+                            <li>Replace "what sells" with "what fits" as the organizing logic of the product.</li>
+                            <li>Make every recommendation explainable, so trust is earned through transparency rather than asserted through branding.</li>
+                        </ol>
+                        <p class="margin-top-mobile"><strong>Core value proposition:</strong> <em>Everything your pet needs. Chosen around them.</em></p>
+                    </div>
+
+                </div>
+
+            </div>
+            
+            <button class="next-stage-btn mobile-only">
+                Empathize Stage &rarr;
+            </button>
+        </section>
+
+        <!-- 2. EMPATHIZE PANEL -->
+        <section id="empathize" class="panel">
+            <div class="panel-content">
+
+                <div class="section-header">
+                    <h1>Empathize</h1>
+                    <h2 class="brand-name">Understanding the user</h2>
+                    <div class="animated-tape">
+                        <span>• Next stage: Define • Next stage: Define • Next stage: Define • Next stage: Define • Next stage: Define </span>
+                        <span>• Next stage: Define • Next stage: Define • Next stage: Define • Next stage: Define • Next stage: Define </span>
+                    </div>
+                </div>
+                
+                <div class="section-body">
+
+                    <div id="content-sources" style="display: none;">
+                        <ul class="modal-list">
+                            <li></li>
+                        </ul>
+                    </div>
+
+                    <div class="story-container pc-wc1">
+                        <h2>Research Approach</h2>
+                        <p>Direct access to a large, diverse sample of pet owners wasn't feasible within the scope of an independent project, so research combined structured secondary synthesis (Baymard Institute, Nielsen Norman Group, Shopify ecommerce benchmarks, category-specific reports) with an empathy-mapping exercise built from real user language sourced from Reddit, Trustpilot, and ComplaintsBoard reviews of category incumbents. This grounded each persona's frustrations in language pet owners actually use, rather than assumptions about what <em>should</em> frustrate them.</p>
+
+                        <p class="margin-top-mobile">That grounding matters. One widely used pet retailer has accumulated well over a hundred unresolved complaints on a single complaints platform, and independent review aggregators note the company's Trustpilot rating sits at a notably low average, with the large majority of reviews landing at the bottom of the scale — much of it concentrated around billing clarity and subscription management. That's not a UI polish problem. It's a trust-architecture problem, and it became the throughline for all three personas. <a class="inline-link modal-trigger" data-source="content-sources" data-title="References">References here<span>↗</span></a></p>
+                    </div>
+
+                    <!-- Persona 1 -->
+                    <div class="div-title">
+                        <div class="glass-card-standalone margin-top-mobile modal-trigger" data-source="elena-vargas" data-title="Elena Vargas">
+                            <img src="./assets/petcare/user-persona-elena.webp" alt="Elena image" class="card-bg">
+                            
+                            <div class="glass-overlay">
+                                <h3 class="glass-title">Elena Vargas</h3>
+                                <p class="glass-desc desktop-only">Elena Vargas — The Protective Parent</p>
+                            </div>
+                            <div id="elena-vargas" style="display:none">
+                                <div class="persona-card">
+                                    <h2>Elena Vargas — The Protective Parent</h2>
+                                    <blockquote>
+                                        "I treat my dog like family—nothing bad happens on my watch, but these sites make me question if I can trust them."
+                                    </blockquote>
+
+                                    <div class="demographics">
+                                        <p><em>57, retired teacher, part-time shelter volunteer, Houston TX. Cares for Luna, a senior rescue Lab with arthritis.</em></p>
+                                    </div>
+
+                                    <h3>Goals</h3>
+                                    <ul>
+                                        <li>To find vet-endorsed products that match her dog's breed, age, and health needs (e.g., joint supplements for arthritis).</li>
+                                        <li>To track orders and deliveries in real-time to avoid any gaps in essential supplies.</li>
+                                        <li>To access clear ingredient transparency and formula change alerts to prevent health risks.</li>
+                                        <li>To get empathetic support during crises, like a recall or prescription issue.</li>
+                                        <li>To pay a premium for perceived safety without hidden subscription surprises.</li>
+                                    </ul>
+
+                                    <h3>Frustrations</h3>
+                                    <ul>
+                                        <li>Formula changes or recalls without notification, triggering anxiety about past purchases.</li>
+                                        <li>Ambiguous product labels (e.g., "Large" sizing) and out-of-stock items at checkout.</li>
+                                        <li>Distrust from manipulated reviews or opaque policies, making her avoid new platforms.</li>
+                                        <li>Cold, automated customer service that ignores her emotional concerns.</li>
+                                        <li>Prescription delays or unclear vet verification processes that leave her pet vulnerable.</li>
+                                    </ul>
+
+                                    <div class="bio">
+                                        <p>Elena's core psychology is high attachment paired with harm-avoidance. She reads full ingredient panels, seeks vet endorsement before buying, and subscribes specifically to avoid running out of medication or food. Her single greatest fear is being caught off guard — a formula change she didn't know about, a delivery that's late without warning. This isn't paranoia; it echoes real, recurring reports of manufacturers altering formulas without notice, leaving pets refusing food owners had trusted for years, and of autoship charges shifting without the change being clearly flagged at the point of communication.</p>
+                                        <br>    
+                                        <p class="margin-top-mobile"><strong>Problem statement:</strong> Elena is a safety-focused dog owner who needs reliable, transparent information and proactive communication at every stage of the purchase because she cannot afford to make the wrong decision for Luna's health.</p>
+                                        <br>
+                                        <p class="margin-top-mobile"><strong>Hypothesis:</strong> If Elena can access proactive low-stock alerts, visible formula-change timestamps, and precise delivery ETAs throughout her purchase flow, then she will complete purchases confidently without abandoning to seek information elsewhere — measured by decreased cart abandonment and fewer support contacts tied to product or delivery uncertainty.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Persona 2 -->
+                    <div class="div-title">
+                        <div class="glass-card-standalone margin-top-mobile modal-trigger" data-source="jamal-washington" data-title="Jamal Washington">
+                            <img src="./assets/petcare/user-persona-yamal.webp" alt="Jamal image" class="card-bg">
+                            
+                            <div class="glass-overlay">
+                                <h3 class="glass-title">Jamal Washington</h3>
+                                <p class="glass-desc desktop-only">Jamal Washington — The Efficiency Seeker</p>
+                            </div>
+                            <div id="jamal-washington" style="display:none">
+                                <div class="persona-card">
+                                    <h2>Jamal Washington — The Efficiency Seeker</h2>
+                                    <blockquote>
+                                        "I love my dog like family, but with my schedule and budget, I need this to be quick, cheap, and reliable—no drama."
+                                    </blockquote>
+
+                                    <div class="demographics">
+                                        <p><em>38, IT support specialist, single dad, Chicago IL. Co-parents Max, an energetic Beagle, on a tight schedule and tighter budget.</em></p>
+                                    </div>
+
+                                    <h3>Goals</h3>
+                                    <ul>
+                                        <li>To compare prices and shipping across platforms early in the process for total cost clarity.</li>
+                                        <li>To reorder past purchases or essentials (e.g., food bags) in one tap on mobile during commutes.</li>
+                                        <li>To see reliable delivery ETAs and thresholds to fit his busy work-from-home days.</li>
+                                        <li>To avoid switching platforms by having consistent, fair pricing during inflation spikes.</li>
+                                        <li>To use simple, no-friction tools like tap-to-pay for fast checkouts.</li>
+                                    </ul>
+
+                                    <h3>Frustrations</h3>
+                                    <ul>
+                                        <li>Out-of-stock discoveries after building a cart, especially for bulky items like 40lb food bags.</li>
+                                        <li>Aggressive subscription tactics or "incorrect" fees that force him to cancel and migrate to Amazon.</li>
+                                        <li>Lengthy forms (e.g., 20+ fields) or unexplained phone requirements that waste his limited time.</li>
+                                        <li>Hidden shipping fees or thresholds that appear only at the end of checkout.</li>
+                                        <li>Delivery slowdowns (from 1-2 days to 4-8) that disrupt his just-in-time routines.</li>
+                                    </ul>
+
+                                    <div class="bio">
+                                        <p>Jamal's psychology is bounded attachment — the love is real, but every decision runs through an economic filter. He compares platforms, abandons carts the moment a shipping fee appears late, and switches providers when delivery reliability drops. This pattern is well documented in the category: customers describe discovering an item is out of stock only after being told repeatedly that it will ship within 24 to 48 hours, with the delay stretching on for days, and reviewers report autoship-related billing problems significant enough to prompt a formal complaint process. For someone optimizing every minute, that kind of drawn-out uncertainty is disqualifying.</p>
+                                        <br>
+                                        <p class="margin-top-mobile"><strong>Problem statement:</strong> Jamal is a budget-conscious single dad who needs frictionless, price-transparent purchasing and reliable delivery because every minute and dollar wasted on a broken platform is a resource taken away from his son and his dog.</p>
+                                        <br>
+                                        <p class="margin-top-mobile"><strong>Hypothesis:</strong> If Jamal can see out-of-stock labels before entering a product page, compare prices inline, and complete checkout with full cost transparency and minimal form fields, then he will stop abandoning carts mid-flow and reduce platform switching — measured by decreased mid-flow abandonment and increased repeat purchase rate.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Persona 3 -->
+                    <div class="div-title">
+                        <div class="glass-card-standalone margin-top-mobile modal-trigger" data-source="alex-kim" data-title="Alex Kim">
+                            <img src="./assets/petcare/user-persona-alex.webp" alt="Alex image" class="card-bg">
+                            
+                            <div class="glass-overlay">
+                                <h3 class="glass-title">Alex Kim</h3>
+                                <p class="glass-desc desktop-only">Alex Kim — The Overwhelmed Newcomer</p>
+                            </div>
+                            <div id="alex-kim" style="display:none">
+                                <div class="persona-card">
+                                    <h2>Alex Kim — The Overwhelmed Newcomer</h2>
+                                    <blockquote>
+                                        "I want to be the best pet parent possible, but with so many options and my ADHD, I just need someone to guide me without the overwhelm."
+                                    </blockquote>
+
+                                    <div class="demographics">
+                                        <p><em>28, freelance graphic designer, Seattle WA. First-time cat owner, adopted Miso from a shelter.</em></p>
+                                    </div>
+
+                                    <h3>Goals</h3>
+                                    <ul>
+                                        <li>To discover products via social media (e.g., TikTok recs) that match their "new owner" lifestyle.</li>
+                                        <li>To use guided tools like starter kits or quizzes for life-stage recommendations (e.g., kitten food).</li>
+                                        <li>To apply human-grade standards (organic, minimal packaging) in a simple, visual catalog.</li>
+                                        <li>To reorder seamlessly on mobile with Apple Pay during creative breaks.</li>
+                                        <li>To get stage-aware navigation that evolves as Miso grows (e.g., from "Puppy" to "Adult").</li>
+                                    </ul>
+
+                                    <h3>Frustrations</h3>
+                                    <ul>
+                                        <li>Too many similar products (20+) without badges or filters that cause decision paralysis.</li>
+                                        <li>No "New Owner" entry points or progressive narrowing, leading to tab overload.</li>
+                                        <li>Non-mobile-first designs that clash with their tech-native habits (e.g., hidden search bars).</li>
+                                        <li>Generic hierarchies ignoring their values (e.g., no human-grade icons) or irrelevant notifications.</li>
+                                        <li>Manual card entry or complex subscriptions that amplify their ADHD-related focus issues.</li>
+                                    </ul>
+
+                                    <div class="bio">
+                                        <p>Alex represents a distinct psychological profile: identity-driven, tech-native, and guidance-seeking, but easily paralyzed by undifferentiated choice. They discover products via social platforms, apply human-wellness standards (organic, human-grade) to pet purchases, and abandon quickly when a catalog offers twenty near-identical SKUs with no entry point for a first-time owner.</p>
+                                        <br>
+                                        <p class="margin-top-mobile"><strong>Problem statement:</strong> Alex is an enthusiastic first-time cat parent who needs a guided, values-aligned shopping experience because without clear direction, their ADHD turns every purchase decision into an overwhelming spiral that makes them feel like they're already failing Miso.</p>
+                                        <br>
+                                        <p class="margin-top-mobile"><strong>Hypothesis:</strong> If Alex can access a guided new-owner entry point with a filtering quiz that narrows the catalog to 3–5 relevant, correctly labeled products, and complete checkout with tap-to-pay and no late-revealed fees, then they will complete purchases without abandoning to seek guidance elsewhere — measured by increased first-session conversion.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 class="subsection-title-desktop margin-top-mobile">User Journey Elena Vargas</h2>
+                    <div class="image-user-journey">
+                        <img src="./assets/petcare/user-journey-elena.webp" alt="User journey Elena" class="zoomable no-shadow">
+                    </div>
+
+                    <h2 class="subsection-title-desktop margin-top-mobile">User Journey Jamal Washington</h2>
+                    <div class="image-user-journey">
+                        <img src="./assets/petcare/user-journey-yamal.webp" alt="User journey Jamal" class="zoomable no-shadow">
+                    </div>
+
+                    <h2 class="subsection-title-desktop margin-top-mobile">User Journey Alex Kim</h2>
+                    <div class="image-user-journey">
+                        <img src="./assets/petcare/user-journey-alex.webp" alt="User journey Alex" class="zoomable no-shadow">
+                    </div>
+
+                    <div class="story-container">
+                        <h2>Aggregate Empathy Map</h2>
+                        <p>Synthesizing all three (plus two secondary archetypes — the Platform Skeptic and Convenience Optimizer — that informed edge-case decisions) surfaced one consistent tension: <strong>pet owners research like experts but are served like generic shoppers.</strong> They think in terms of safety and suitability ("Is this safe/vet-approved? Has it changed?"), but the interfaces they use are optimized for volume and conversion, not confidence. That gap — between the depth of the decision and the shallowness of the tools available to make it — became the design brief.</p>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <button class="next-stage-btn mobile-only">
+                Define Stage &rarr;
+            </button>
+        </section>
+
+        <!-- 3. DEFINE PANEL -->
+        <section id="define" class="panel">
+            <div class="panel-content">
+
+                <div class="section-header">
+                    <h1>Define</h1>
+                    <h2 class="brand-name">From research to pillars</h2>
+                    <div class="animated-tape">
+                        <span>• Next stage: Ideate • Next stage: Ideate • Next stage: Ideate • Next stage: Ideate • Next stage: Ideate </span>
+                        <span>• Next stage: Ideate • Next stage: Ideate • Next stage: Ideate • Next stage: Ideate • Next stage: Ideate </span>
+                    </div>
+                </div>
+                
+                <div class="section-body">
+                    
+                    <div class="story-container">
+                        <h2>From Research to Pillars</h2>
+                        <p>The Empathize stage surfaced three distinct psychologies — Elena's harm-avoidance, Jamal's economic bounded-attachment, and Alex's identity-driven overwhelm — but underneath the differences, each persona kept failing at the *same three moments* in the shopping journey. The Define stage's job wasn't to invent new priorities; it was to name the pattern already sitting inside the empathy work and turn it into pillars specific enough to design against.</p>
+
+                        <h2 class="margin-top-mobile">Core Strategic Pillars</h2>
+
+                        <h3 class="margin-top-mobile text-center">1. Reduce Cognitive Load</h3>
+                        <p>This pillar came directly from Alex's frustration with catalogs offering 20+ nearly identical SKUs with no differentiation or entry point — a pattern that produces decision paralysis for someone with ADHD-related bandwidth constraints. But the same failure showed up for Elena too: her research process (reading full ingredient panels, checking multiple similar-pet reviews before trusting a product) is itself a cognitive-load workaround for a catalog that doesn't pre-filter anything on her behalf. Two personas with opposite motivations — one avoiding harm, one avoiding overwhelm — converged on the same root cause: the catalog asks the user to do the narrowing work the platform should be doing.</p>
+
+                        <h3 class="margin-top-mobile text-center">2. Increase Confidence</h3>
+                        <p>This pillar came from Elena and Jamal's shared vulnerability to *late-arriving information*. Elena's highest-anxiety trigger is a formula change or delivery delay she discovers only after the fact — never flagged proactively. Jamal's cart abandonment is driven by the same structural problem in a different currency: prices, fees, and stock status that surface only at checkout instead of earlier in the funnel, at the exact moment he's already invested time comparing options. Different stakes (health vs. money), same design failure: trust signals exist, but they arrive too late to prevent the moment of doubt.</p>
+
+                        <h3 class="margin-top-mobile text-center">3. Make Recommendations Transparent</h3>
+                        <p>This pillar came from what was *missing* across all three personas rather than a shared complaint. Elena needs to know *why* a product is safe for Luna specifically, not just that it's popular. Jamal needs to know *why* a price or plan is his best option, not just that it exists. Alex needs a recommendation to explain itself in plain terms, because a black-box "Best Match" badge gives them nothing to reason about — and reasoning is what converts overwhelm into a decision. The competitive audit reinforced this: every incumbent platform separates expert reasoning (editorial, vet content) from the purchase flow itself, so even where good information exists, it isn't attached to the recommendation the user is actually looking at.</p>
+
+                        <h3 class="margin-top-mobile text-center">Why These Three, Together</h3>
+                        <p class="margin-top-mobile">No single persona justifies all three pillars alone — that's the point. Each pillar is the answer to a failure that recurred across at least two of the three research profiles, which is what makes them structural priorities for the product rather than a fix for one user type. Together, they define what "having an expert beside you" has to mean mechanically: an expert *pre-filters* (Pillar 1), an expert *tells you things before you have to ask* (Pillar 2), and an expert *always explains their reasoning* (Pillar 3).</p>
+                    </div>
+                    
+                </div>
+
+            </div>
+            
+            <button class="next-stage-btn mobile-only">
+                Ideate Stage &rarr;
+            </button>
+        </section>
+
+        <!-- 4. IDEATE PANEL -->
+        <section id="ideate" class="panel">
+            <div class="panel-content">
+                <div class="section-header">
+                    <h1>Ideate</h1>
+                    <h2 class="brand-name">Generating solutions</h2>
+                    <div class="animated-tape">
+                        <span>• Next stage: Prototype • Next stage: Prototype • Next stage: Prototype • Next stage: Prototype • Next stage: Prototype </span>
+                        <span>• Next stage: Prototype • Next stage: Prototype • Next stage: Prototype • Next stage: Prototype • Next stage: Prototype </span>
+                    </div>
+                </div>
+                
+                <div class="section-body">
+                    
+                    <div class="story-container pc-wc2">
+                        <h2>How Might We</h2>
+                        <p>Each persona's problem statement was translated into a distinct set of HMWs to keep solutions grounded in a specific psychology rather than generic ecommerce best practice:</p>
+                        
+                        <p><strong>Elena</strong> — <em>How might we make Elena feel as protected as if a vet were purchasing for her? How might we make her feel in control of her order from placement to arrival? How might we make discovering product information feel trustworthy rather than stressful?</em></p>
+                        
+                        <p><strong>Jamal</strong> — <em>How might we show consideration for every second and dollar Jamal spends? How might we make his recurring purchases effortless without feeling locked in? How might we make our delivery commitments feel as reliable as his own routine?</em></p>
+                        
+                        <p><strong>Alex</strong> — <em>How might we make Alex feel that PetCare.co understands what it means to become a cat parent for the first time? How might we turn "too many choices" into "exactly the right one"? How might we sustain their enthusiasm through Miso's life stages?</em></p>
+                    </div>
+                    
+                    <div class="crazy-eights-container margin-top-mobile">
+                        <img src="./assets/petcare/crazy-8.webp" alt="crazy-eights" class="zoomable">
+                    </div>
+
+                    <p class="support-note">In these sketches I was able to visualize a wide range of ideas. I started with the most intuitive ideas and then moved into the more experimental ones, but I always kept in mind the user's needs and the problem statement.</p>
+
+                    <div class="story-container pc-wc3">
+                        <h2>Competitive Audit</h2>
+                        <p>The audit was built around one question: <strong>what should PetCare.co build, and where is the clearest competitive white space to build it in?</strong> Five competitors were evaluated — three direct (<strong>Chewy</strong>, <strong>Open Farm</strong>, <strong>The Farmer's Dog</strong>) and two indirect (<strong>Dog/Cat Food Advisor</strong>, <strong>Pawdi</strong>) — across transparency, guided discovery, checkout friction, and mobile UX, then mapped against each persona's specific needs.</p>
+
+                        <p><strong>Key finding:</strong> the market is structurally split. Platforms with strong expert content and transparency (Dog Food Advisor, Pawdi) have no purchase flow. Platforms with strong purchase flows (Chewy) are dominated by promotional noise that undermines the very trust signals owners need. No competitor connects the two.</p>
+
+                        <p class="margin-top-mobile">Five additional gaps stood out consistently:</p>
+                        <ul>
+                            <li><strong>No competitor shows formula-change timestamps</strong> — every platform leaves owners to discover changes reactively.</li>
+                            <li><strong>No competitor surfaces delivery ETAs early</strong> — ETAs appear only at address entry or checkout, never at the point of decision-making.</li>
+                            <li><strong>No competitor has a functional new-owner entry point</strong> — The Farmer's Dog's onboarding quiz comes closest but serves only its own subscription; Chewy's pet-profile feature exists but is broken.</li>
+                            <li><strong>No competitor offers cross-platform price comparison</strong> — every price tool is self-referential.</li>
+                            <li><strong>Cat ownership is consistently under-served</strong> relative to dog ownership across the entire competitive set.</li>
+                        </ul>
+
+                        <h2 class="margin-top-mobile">Opportunities</h2>
+                        <p>Each gap translated into a concrete feature direction: a visible <strong>formula-change log</strong> on every product page; <strong>delivery ETAs surfaced at the listing and cart stage</strong>, not just checkout; a <strong>catalog-wide guided quiz</strong> for new owners (rather than a single-product onboarding flow); <strong>expert guidance embedded directly in the purchase flow</strong> instead of siloed as editorial content; and a <strong>first-class cat ownership experience</strong> built with the same depth as the dog catalog.</p>
+                    </div>
+
+                </div>
+            </div>
+            
+            <button class="next-stage-btn mobile-only">
+                Prototype Stage &rarr;
+            </button>
+        </section>
+
+        <!-- 5. PROTOTYPE PANEL -->
+        <section id="prototype" class="panel">
+            <div class="panel-content">
+                <div class="section-header">
+                    <h1>Prototype</h1>
+                    <h2 class="brand-name">Layout Blueprints</h2>
+                    <div class="animated-tape">
+                        <span>• Next stage: Test • Next stage: Test • Next stage: Test • Next stage: Test • Next stage: Test </span>
+                        <span>• Next stage: Test • Next stage: Test • Next stage: Test • Next stage: Test • Next stage: Test </span>
+                    </div>
+                </div>
+                
+                <div class="section-body">
+
+                    
+                    <div class="story-container pc-wc5">
+                        <h2>Prototype</h2>
+                        <p>Three screens were prioritized for the design walkthrough, each mapped to a specific persona tension:</p>
+                        <p><strong>Homepage</strong> — Opens with an onboarding moment ("Tell us who's home") before any product is shown, directly answering Alex's need for a guided entry point rather than an open catalog. The hero deliberately leads with philosophy — <em>"Everything your pet needs, chosen around them"</em> — before commerce, setting an editorial, non-transactional tone from the first screen.</p>
+                        <p><strong>Product Detail Page</strong> — Reframes the standard "Excellent Match" badge as <strong>"Suitability For: Senior, Sensitive Stomach"</strong> — naming exactly what the score is measuring rather than a vague superlative. Beneath it, the "Why This Score" section explains the actual mechanism (e.g., hydrolyzed protein reducing immune triggers) instead of generic marketing copy — the core mechanism for earning Elena's trust and giving Jamal a fast, legible reason to decide.</p>
+                        <p><strong>Vet Insight Drawer</strong> — Rather than routing users to a separate content page, veterinary reasoning opens in a contextual drawer triggered from the compatibility section itself ("Reviewed by Dr. Ana Morales — Read Full Insight"). This was a direct response to the audit finding that expert content and purchase flow are almost never integrated in the category — keeping Elena's need for authority signals inside the moment of decision rather than external to it.</p>
+                        <p class="margin-top-mobile">Across all three, typography does the emotional work the category usually assigns to photography and banners — large type, generous negative space, and a muted, non-"pet store" palette (deep royal blue, warm coral, warm ivory) reinforce the calm, editorial register the brand needed to feel earned rather than performed.</p>
+                    </div>
+
+                    <div class="wireframe-container margin-top-mobile">
+                        <img src="./assets/petcare/p-w-home.webp" alt="Homepage papper wireframe" class="zoomable">
+                    </div>
+                    <p class="support-note">Homepage papper wireframe <br><br> Here I wanted to find a way to discover products as fast as possible avoiding overwhelming users with too many options at once</p>
+
+                    <div class="wireframe-container margin-top-mobile">
+                        <img src="./assets/petcare/p-w-pdp.webp" alt="PDP papper wireframe" class="zoomable">
+                    </div>
+                    <p class="support-note">PDP papper wireframe <br><br> Here I wanted to provide users with all the information they need to make a decision confidently</p>
+
+                    <div class="wireframe-container margin-top-mobile">
+                        <img src="./assets/petcare/p-w-vet-insight-drawer.webp" alt="Vet insight drawer papper wireframe" class="zoomable">
+                    </div>
+                    <p class="support-note">Vet insight drawer papper wireframe <br><br> Here I wanted to provide users with reliable information from certified veterinarians without leaving the product detail page</p>
+
+                    <div class="wireframe-container margin-top-mobile">
+                        <img src="./assets/petcare/lofi-mockup-homepage.webp" alt="Homepage lofi mockup" class="digital zoomable hd">
+                    </div>
+                    <p class="support-note">Homepage lofi mockup</p>
+
+                    <div class="wireframe-container margin-top-mobile">
+                        <img src="./assets/petcare/lofi-mockup-pdp.webp" alt="PDP lofi mockup" class="digital zoomable hd">
+                    </div>
+                    <p class="support-note">PDP lofi mockup</p>
+
+                    <div class="wireframe-container margin-top-mobile">
+                        <img src="./assets/petcare/lofi-mockup-vetinsightdrawer.webp" alt="Vet insight drawer lofi mockup" class="digital zoomable hd">
+                    </div>
+                    <p class="support-note">Vet insight drawer lofi mockup</p>
+
+                    <div class="story-container pc-wc600">
+                        <p>Before moving to high-fidelity, I validated the core navigation logic in low-fidelity — testing whether users could move from Home → guided quiz → product listing without getting lost, ahead of investing in visual design. You can check the lofi prototype <a href="https://www.figma.com/proto/4bLY9yFswim8Tm0iTkzwAq/PetCare?node-id=217-1430&viewport=349%2C-857%2C0.41&t=H87wxH2ToucU5Gxn-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=217%3A1430&show-proto-sidebar=1&page-id=217%3A28" target="_blank"><span>Lofi Prototype</span></a>. This early concept was tested, its findings are presented in <a href="#methodology" class="inline-link">the Test Stage <span>↗</span></a>. </p>
+
+                        <p>Then I moved to high-fidelity with a specific art direction in mind: mid-century commercial illustration. Editorial ad work from that era used confident linework, warm limited palettes, and painterly texture to communicate care while still feeling considered and authoritative, which mapped almost exactly onto what the product needed to feel like "an expert beside you" without tipping into either clinical coldness or pet-store cuteness. </p>
+
+                    </div>
+                    
+                    <div class="center-mobile margin-top-mobile">
+                        <img src="./assets/petcare/art-direction.webp" alt="Art direction image" style="width: 220px;">
+                    </div>
+
+                    <p class="support-note">Art direction sample</p>
+
+                    <div class="wireframe-container margin-top-mobile">
+                        <img src="./assets/petcare/hifi-mockup-home.webp" alt="hifi homepage mockup" class="digital zoomable hd">
+                    </div>
+                    <p class="support-note">Homepage hifi mockup</p>
+
+                    <div class="wireframe-container margin-top-mobile">
+                        <img src="./assets/petcare/hifi-mockup-pdp.webp" alt="hifi PDP mockup" class="digital zoomable hd">
+                    </div>
+                    <p class="support-note">PDP hifi mockup</p>
+
+                    <div class="wireframe-container margin-top-mobile">
+                        <img src="./assets/petcare/hifi-mockup-vetinsightdrawer.webp" alt="hifi veterinary insight drawer mockup" class="digital zoomable hd">
+                    </div>
+                    <p class="support-note">Veterinary insight drawer hifi mockup</p>
+
+                </div>
+            </div>
+            
+            <button class="next-stage-btn mobile-only">
+                Test Stage &rarr;
+            </button>
+        </section>
+
+        <!-- 6. TEST PANEL -->
+        <section id="test" class="panel">
+            <div class="panel-content">
+                <div class="section-header">
+                    <h1>Test</h1>
+                    <h2 class="brand-name">Validating Concepts</h2>
+                    <div class="animated-tape">
+                        <span>• Next stage: Outcomes • Next stage: Outcomes • Next stage: Outcomes • Next stage: Outcomes • Next stage: Outcomes </span>
+                        <span>• Next stage: Outcomes • Next stage: Outcomes • Next stage: Outcomes • Next stage: Outcomes • Next stage: Outcomes </span>
+                    </div>
+                </div>
+                
+                <div class="section-body">
+                    
+                    <div class="story-container pc-wc6">
+                        <h2 id="methodology">Methodology</h2>
+                        <p>The original research plan called for a broader moderated study across all three personas. Budget and access constraints for an independent project meant the study was scaled down to an **unmoderated remote usability test**, run April 20–24, 2026, with participants recruited through LinkedIn and Reddit — primarily UX practitioners rather than a demographically matched pet-owner sample. Four participants completed four core tasks (finding a suitable product for specific pet needs, comparing alternatives, completing checkout, and setting up a recurring budget-based plan), followed by SUS and NPS questionnaires. This is a real limitation worth naming: the sample skews toward users already fluent in evaluating interfaces, which likely understated some friction a first-time or less tech-comfortable pet owner would hit.</p>
+
+                        <h2 class="margin-top-mobile">Key Insights</h2>
+                        <p><strong>Search lacked visibility.</strong> Every participant relied on search to navigate the catalog, but its low visual prominence slowed initial discovery — a direct fix: increase its visual weight and accessibility.</p>
+                        
+                        <p class="margin-top-mobile"><strong>Filter and sort controls weren't consistently reachable.</strong> Users expected to adjust or reset active search criteria mid-exploration but couldn't do so predictably across contexts, interrupting the browsing flow.</p>
+                        
+                        <p class="margin-top-mobile"><strong>Trust signals worked as designed.</strong> Ratings, ingredient labels, and vet insights were consistently used to evaluate products — direct validation of the core strategic pillar, and the clearest signal to protect and reinforce rather than change.</p>
+                        
+                        <p class="margin-top-mobile"><strong>Price clarity arrived too late.</strong> Users expected to understand total cost before being asked to commit; when pricing wasn't prioritized at that stage, hesitation followed — directly validating Jamal's hypothesis and pointing to a fix in checkout hierarchy, not new features.</p>
+                        
+                        <p class="margin-top-mobile"><strong>The recommendation system's logic wasn't visible everywhere it should be.</strong> Suitability guidance worked well when pet context was available, but disappeared in flows like search where that context hadn't yet been entered — creating an inconsistent sense of "guided expertise" depending on entry point. The fix: a lightweight search assistant to surface pet context earlier, and consistent "Why this matches" entry points across PLP and PDP.</p>
+                        
+                        <p class="margin-top-mobile"><strong>Autoship lacked one unified mental model.</strong> Because the feature could be entered from Home or the PDP, each entry point presented a different slice of how it worked, causing confusion and, for at least one participant, task failure — echoing the same fragmentation that shows up in real autoship complaints across the category. The fix is conceptual before it's visual: define autoship in one consistent way — a recurring plan built around the pet's needs and the owner's budget — everywhere it appears.</p>
+                    </div>
+
+                    <div class="result-container margin-top-mobile">
+                        <img src="./assets/petcare/compare-after-test-1.webp" alt="Comparition image" class="zoomable">
+                    </div>
+                    
+                    <div class="result-container margin-top-mobile">
+                        <img src="./assets/petcare/compare-after-test-2.webp" alt="Comparition image" class="zoomable">
+                    </div>
+
+                </div>
+            </div>
+            
+            <button class="next-stage-btn mobile-only">
+                Outcomes Stage &rarr;
+            </button>
+        </section>
+
+        <!-- 7. DESIGN OUTCOMES PANEL -->
+        <section id="outcomes" class="panel">
+            <div class="panel-content">
+                <div class="section-header">
+                    <h1>Outcomes</h1>
+                    <h2 class="brand-name">Design Outcomes</h2>
+                    <div class="animated-tape">
+                        <span>• This is the end of the journey • This is the end of the journey • This is the end of the journey • This is the end of the journey </span>
+                        <span>• This is the end of the journey • This is the end of the journey • This is the end of the journey • This is the end of the journey </span>
+                    </div>
+                </div>
+                
+                <div class="section-body">
+                    
+                    <div class="story-container pc-wc600">
+                        
+                        <table class="outcomes-table">
+                            <thead>
+                                <tr>
+                                    <th>Design Outcome</th>
+                                    <th>Evidence in the Design</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>2 fewer steps before personalization begins</strong></td>
+                                    <td>Pet type is selected directly in the hero instead of requiring users to browse categories or enter a separate onboarding flow before receiving personalized recommendations.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>5 purchase questions answered in a single PDP</strong></td>
+                                    <td>The product page consolidates suitability, recommendation reasoning, veterinary validation, pricing, and monthly planning into one decision-making experience.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>4 trust signals unified before purchase</strong></td>
+                                    <td>Compatibility Score, Why This Score, Veterinary Insight, and Price Comparison work together to help users make informed decisions.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h2 class="margin-top-mobile">Reflections</h2>
+
+                        <h3 class="margin-top-mobile">From interface design to product thinking</h3>
+                        <p>Building PetCare fundamentally changed how I approach digital products. Throughout the project, I audited more than 100 ecommerce screens from leading pet retailers and shared my findings publicly on LinkedIn. That process introduced me to Conversion Rate Optimization (CRO) and shifted my perspective from designing attractive interfaces to designing experiences that solve business problems and help users make better decisions.</p>
+
+                        <h3 class="margin-top-mobile">Trust is the real product</h3>
+                        <p>One of the biggest lessons from this project is that great products are not defined by typography, spacing, colors, or trendy UX patterns. Those elements matter, but only insofar as they support the real goal: helping users trust the product enough to make confident decisions. For businesses, success comes from continuously optimizing experiences that convert. For users, success comes from feeling confident that the product delivers on its promises. Designing for trust became the guiding principle behind every decision in PetCare.</p>
+
+                        <h3 class="margin-top-mobile">Every assumption deserves validation</h3>
+                        <p>This project also reinforced the importance of testing. Many of the ideas behind PetCare—from personalized recommendations to explainable compatibility scores—are hypotheses, not facts. Validating those hypotheses through usability testing requires time and resources, but that investment is far less expensive than building the wrong product. Good design is not about being right from the beginning; it's about reducing uncertainty through continuous learning.</p>
+
+                        <p class="margin-top-mobile">
+                            <a href="https://www.figma.com/proto/4bLY9yFswim8Tm0iTkzwAq/PetCare?page-id=781%3A10&node-id=1693-6066&viewport=1074%2C-1903%2C0.25&t=Z5Y1vljSpbvw9rmc-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1693%3A6066&show-proto-sidebar=1">Check the prototype here!</a>
+                        </p>
+
+                        <div class="center-mobile">
+                            <video
+                            autoplay
+                            muted
+                            loop
+                            playsinline
+                            preload="metadata"
+                            style="
+                            width: 184px;
+                            clip-path: inset(6px 6px 5px 5px round 28px);
+                            "
+                        >
+                                <source src="./assets/petcare/demo.webm" type="video/webm">
+                            </video>
+                        </div>
+
+                </div>
+            </div>
+            
+            <button class="next-stage-btn mobile-only" onclick="window.location.href='index.html';">
+                More Projects
+            </button>
+        </section>
+
+    </main>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="global-modal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 class="modal-title">Information</h3> <button class="modal-close-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="modal-body-content" id="modal-target"></div>
+        </div>
+    </div>
+
+    <!-- Modal img -->
+    <div id="image-lightbox" class="lightbox-overlay">
+        <button class="lightbox-close" aria-label="Close">✕</button>
+        
+        <button id="prev-btn" class="nav-btn">←</button>
+        <button id="next-btn" class="nav-btn">→</button>
+        
+        <div class="lightbox-container">
+            <img id="lightbox-image" src="" alt="Full size view">
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js"></script>
+
+    <script src="js/petcare.js"></script>
+</body>
+</html>
