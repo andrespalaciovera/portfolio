@@ -344,6 +344,93 @@ model-viewer {
 .case-info h4 { margin-bottom: 8px; }
 .case-meta { font-size: 12px; color: #666; margin-top: 12px; }
 
+/* --- CRO AUDITS ENTRY SECTION (LIGHTER COMPONENT) --- */
+.grid-audits {
+    margin-top: 24px;
+}
+
+.audit-entry-link {
+    display: block;
+}
+
+.audit-entry-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(4px);
+    border: 1.5px dashed var(--main-color);
+    border-radius: 12px;
+    padding: 18px 20px;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.audit-entry-link:hover .audit-entry-card {
+    background: var(--white);
+    border-style: solid;
+    border-color: var(--main-color);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+}
+
+.audit-entry-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #555555;
+}
+
+.audit-badge-dot {
+    width: 7px;
+    height: 7px;
+    background-color: #22c55e;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.audit-entry-content h4 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--main-color);
+}
+
+.audit-entry-content p {
+    font-size: 13px;
+    line-height: 1.5;
+    color: #555555;
+    margin-bottom: 0;
+}
+
+.audit-entry-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-top: 1px dotted rgba(51, 51, 51, 0.15);
+    padding-top: 8px;
+    margin-top: 2px;
+}
+
+.audit-entry-action {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--main-color);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.audit-entry-action .arrow {
+    transition: transform 0.2s ease;
+}
+
+.audit-entry-link:hover .audit-entry-action .arrow {
+    transform: translateX(4px);
+}
+
 /* --- ACCORDIONS --- */
 .accordion {
     border-bottom: 1px solid var(--main-color);
@@ -618,6 +705,7 @@ footer {
         grid-template-areas: 
             "visual details"
             "cases details"
+            "audits details"
             "faqs details";
         justify-content: space-between;
         align-items: start;
@@ -627,6 +715,7 @@ footer {
     /* Assigning grid areas */
     .grid-visual { grid-area: visual; margin-bottom: 48px; }
     .grid-cases { grid-area: cases; }
+    .grid-audits { grid-area: audits; margin-top: 40px; }
     .grid-faqs { grid-area: faqs; margin-top: 48px; }
     
     .grid-details { 
