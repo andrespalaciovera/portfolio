@@ -1,18 +1,4 @@
-
-/* =========================================
-    CSS VARIABLES & DESIGN TOKENS
-    ========================================= */
-:root {
-    --bg-color: #f8f8f8;
-    --text-color: #333333;
-    --main-color: var(--text-color); /* Alias for backward compatibility */
-    --white: #ffffff;
-    
-    /* Dotted Grid Variables */
-    --dot-color: rgba(51, 51, 51, 0.15);
-    --dot-size: 1.5px;
-    --dot-spacing: 24px;
-}
+@import "./tokens.css";
 
 * {
     box-sizing: border-box;
@@ -82,7 +68,7 @@ model-viewer::part(default-progress-bar) {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 2px solid var(--main-color);
+    border: var(--card-border);
     border-radius: 16px;
     padding: 12px 24px;
     margin-bottom: 32px;
@@ -347,6 +333,13 @@ model-viewer {
 /* --- CRO AUDITS ENTRY SECTION (LIGHTER COMPONENT) --- */
 .grid-audits {
     margin-top: 24px;
+}
+
+.audit-section-title {
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 24px;
 }
 
 .audit-entry-link {
@@ -697,6 +690,7 @@ footer {
     p { font-size: 16px; }
     .btn-label { font-size: 20px; }
     .accordion-header { font-size: 20px; }
+    .audit-section-title { font-size: 18px; }
     
     /* CSS Grid Template Areas for Desktop Layout */
     .pdp-grid {

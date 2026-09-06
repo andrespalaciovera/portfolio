@@ -1,9 +1,7 @@
-:root {
-    --bg-color: #f8f8f8;
-    --text-color: #333333;
-    --font-color: var(--text-color); /* Alias for backward compatibility */
+@import "./tokens.css";
 
-    /* Dotted Grid Variables */
+:root {
+    /* Dotted Grid Variables (style.css specific overrides) */
     --dot-color-dark: rgba(0, 0, 0, 0.35);
     --dot-color-light: rgba(119, 119, 119, 0.35);
     --dot-size: 1px;
@@ -250,7 +248,7 @@ ul li{
     width: auto;
     max-width: calc(100% - 40px); /* Ensure it doesn't touch screen edges */
     height: auto;
-    border: 2px solid var(--font-color);
+    border: var(--card-border);
     background-color: var(--bg-color);
     z-index: 99;
     display: flex;

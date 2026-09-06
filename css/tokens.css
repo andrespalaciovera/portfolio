@@ -1,0 +1,43 @@
+/* ==========================================================================
+   DESIGN TOKENS
+   Shared design tokens across all portfolio stylesheets.
+   Imported via @import "./tokens.css"; in index.css, style.css, cro-audits.css.
+   ========================================================================== */
+
+:root {
+    /* Base Colors */
+    --bg-color: #f8f8f8;
+    --text-color: #333333;
+    --white: #ffffff;
+
+    /* Backward Compatibility Aliases */
+    --main-color: var(--text-color);
+    --font-color: var(--text-color);
+
+    /* Typography / Font Families */
+    --font-mono: 'Space Mono', monospace;
+    --font-display: 'Boldonse', system-ui, -apple-system, sans-serif;
+
+    /* Border Weights */
+    --border-thin: 1px;
+    --border-medium: 1.5px;
+    --border-thick: 2px;
+
+    /* Card Borders */
+    --card-border: 2px solid var(--text-color);
+    --card-border-subtle: 1.5px solid rgba(51, 51, 51, 0.18);
+
+    /* Border Radius Scale */
+    --radius-xs: 4px;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-pill: 20px;
+    --radius-full: 9999px;
+    --radius-circle: 50%;
+
+    /* Default Dot-Grid Tokens (index.css & cro-audits.css baseline) */
+    --dot-color: rgba(51, 51, 51, 0.15);
+    --dot-size: 1.5px;
+    --dot-spacing: 24px;
+}

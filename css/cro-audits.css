@@ -1,22 +1,10 @@
+@import "./tokens.css";
+
 /* ==========================================================================
    CRO AUDITS STYLESHEET
    Reuses visual tokens from style.css (colors, fonts, dot grid, borders)
    Uses 100% native vertical scroll — no GSAP, no ScrollTrigger.
    ========================================================================== */
-
-:root {
-    --bg-color: #f8f8f8;
-    --text-color: #333333;
-    --font-color: var(--text-color);
-    --white: #ffffff;
-    --card-border: 2px solid var(--text-color);
-    --card-border-subtle: 1.5px solid rgba(51, 51, 51, 0.18);
-
-    /* Dot Grid Background Tokens from style.css / index.css */
-    --dot-color: rgba(51, 51, 51, 0.15);
-    --dot-size: 1.5px;
-    --dot-spacing: 24px;
-}
 
 * {
     box-sizing: border-box;
@@ -103,7 +91,7 @@ p, li, span {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 2px solid var(--text-color);
+    border: var(--card-border);
     border-radius: 16px;
     padding: 12px 24px;
     margin-bottom: 40px;
@@ -151,7 +139,7 @@ p, li, span {
     text-transform: uppercase;
     background-color: rgba(51, 51, 51, 0.08);
     border: 1px solid rgba(51, 51, 51, 0.2);
-    border-radius: 6px;
+    border-radius: var(--radius-sm);
     padding: 4px 10px;
     margin-bottom: 16px;
 }
@@ -197,7 +185,7 @@ p, li, span {
 
 .audit-card {
     background: var(--white);
-    border: 2px solid var(--text-color);
+    border: var(--card-border);
     border-radius: 16px;
     padding: 24px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
@@ -330,7 +318,7 @@ p, li, span {
 /* Context Callout Box */
 .audit-context-card {
     background: var(--white);
-    border: 2px solid var(--text-color);
+    border: var(--card-border);
     border-radius: 12px;
     padding: 20px 24px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
@@ -393,8 +381,8 @@ p, li, span {
 /* Finding Blocks */
 .finding-block {
     background: var(--white);
-    border: 2px solid var(--text-color);
-    border-radius: 14px;
+    border: var(--card-border);
+    border-radius: var(--radius-md);
     padding: 24px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
 }
@@ -419,15 +407,42 @@ p, li, span {
     margin-bottom: 12px;
 }
 
+.finding-layout {
+    display: flex;
+    flex-direction: column;
+}
+
+.finding-content {
+    display: contents;
+}
+
 .finding-body {
+    order: 1;
     font-size: 15px;
     line-height: 1.6;
     margin-bottom: 16px;
     color: #333333;
 }
 
+/* Finding Block Screenshots (Static, vertical scroll only) */
+.finding-figure {
+    order: 2;
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.finding-img {
+    width: 100%;
+    max-width: 360px;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-md);
+}
+
 /* Why It Matters Callout */
 .why-matters-box {
+    order: 3;
     background: rgba(51, 51, 51, 0.04);
     border-left: 3px solid var(--text-color);
     padding: 12px 16px;
@@ -444,6 +459,7 @@ p, li, span {
 
 /* Gaps Callout */
 .gaps-box {
+    order: 4;
     margin-top: 14px;
     background: #fff8eb;
     border: 1px solid #d4a359;
@@ -463,8 +479,8 @@ p, li, span {
 /* Takeaway Section */
 .takeaway-card {
     background: var(--white);
-    border: 2px solid var(--text-color);
-    border-radius: 14px;
+    border: var(--card-border);
+    border-radius: var(--radius-md);
     padding: 24px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
     text-align: left;
@@ -547,6 +563,40 @@ p, li, span {
     .takeaway-card { padding: 28px 32px; }
     .context-row { flex-direction: row; gap: 8px; }
     .context-label { min-width: 170px; }
+    .finding-layout {
+        display: flex;
+        flex-direction: row;
+        gap: 28px;
+        align-items: flex-start;
+        margin-bottom: 0;
+    }
+    .finding-figure {
+        order: initial;
+        flex: 0 0 172px;
+        max-width: 172px;
+        margin: 0;
+    }
+    .finding-img {
+        max-width: 172px;
+    }
+    .finding-content {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        flex: 1;
+        order: initial;
+    }
+    .finding-body {
+        order: initial;
+        margin-bottom: 0;
+    }
+    .why-matters-box {
+        order: initial;
+    }
+    .gaps-box {
+        order: initial;
+        margin-top: 0;
+    }
 }
 
 @media (max-width: 480px) {
@@ -555,4 +605,5 @@ p, li, span {
     .audit-card { padding: 18px 16px; }
     .audit-card-footer { flex-direction: column; align-items: flex-start; }
     .audit-framing-card { font-size: 13px; }
+    .finding-img { max-width: 100%; }
 }
